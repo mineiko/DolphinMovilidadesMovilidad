@@ -20,11 +20,7 @@ class SeccionesPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return 2;
+        return 4;
     }
 
-    @Override
-    public CharSequence getPageTitle(int position) {
-        return "Tab";
-    }
 }

@@ -31,5 +31,5 @@ dependencies {
     compile 'com.mcxiaoke.volley:library:1.0.19'
     compile 'com.google.code.gson:gson:2.7'
     testCompile 'junit:junit:4.12'
-    compile files('libs/signalr-client-sdk-android.jar')
+    //compile files('libs/com.tyddolphin.appmovilidad.signalr-client-sdk-android.jar')
 }

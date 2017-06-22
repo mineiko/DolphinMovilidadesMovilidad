@@ -1,4 +1,4 @@
-package signalr;
+package com.tyddolphin.appmovilidad.signalr;
 
 import android.content.Context;
 

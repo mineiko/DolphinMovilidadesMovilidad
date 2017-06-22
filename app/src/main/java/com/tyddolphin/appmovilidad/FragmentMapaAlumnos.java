@@ -26,6 +26,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.tyddolphin.appmovilidad.datosfalsos.Ruta;
+import com.tyddolphin.appmovilidad.rest.Ubicacion;
 
 
 public class FragmentMapaAlumnos extends Fragment {
@@ -106,6 +108,7 @@ public class FragmentMapaAlumnos extends Fragment {
 
                 googlemap = _googleMap;
                 googlemap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-16.449572, -71.536306), 18));
+                dibujarPolyline();
             }
         });
 
@@ -133,5 +136,13 @@ public class FragmentMapaAlumnos extends Fragment {
         return view;
     }
 
+    private void dibujarPolyline(){
+        Ubicacion[] ruta = new Ruta().ruta;
+        PolylineOptions po = new PolylineOptions();
+        for(Ubicacion ubicacion : ruta) {
+            po.add(new LatLng(ubicacion.Latitud, ubicacion.Longitud));
+        }
+        googlemap.addPolyline(po);
+    }
 
 }

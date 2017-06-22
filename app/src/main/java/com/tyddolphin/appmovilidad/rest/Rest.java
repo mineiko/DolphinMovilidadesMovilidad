@@ -1,4 +1,4 @@
-package rest;
+package com.tyddolphin.appmovilidad.rest;
 
 import android.content.Context;
 import android.util.Log;
@@ -13,7 +13,7 @@ import com.google.gson.Gson;
 import org.json.JSONObject;
 
 /**
- * Created by Gianella Milon on 21/06/2017.
+ * @author Gianella
  */
 
 public class Rest {

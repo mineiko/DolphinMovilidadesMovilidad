@@ -5,17 +5,17 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 /**
- * Created by Gianella Milon on 18/06/2017.
+ * @author Gianella
  */
 
-public class SeccionesPagerAdapter extends FragmentPagerAdapter {
+class SeccionesPagerAdapter extends FragmentPagerAdapter {
     SeccionesPagerAdapter(FragmentManager fm) {
         super(fm);
     }
 
     @Override
     public Fragment getItem(int position) {
-        if(position==0)return new FragmentIniciarJornada();
+        if(position==0)return new FragmentMapaAlumnos();
         if(position==1)return new FragmentAlertas();
         if(position==2)return new FragmentCuentaMovilidad();
         if(position==3)return new FragmentConfiguracion();

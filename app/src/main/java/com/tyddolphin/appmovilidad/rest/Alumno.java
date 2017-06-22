@@ -1,10 +1,10 @@
-package rest;
+package com.tyddolphin.appmovilidad.rest;
 
 /**
- * Created by Gianella Milon on 21/06/2017.
+ * @author Gianella
  */
 
-public class Alumno {
+class Alumno {
     public int Id;
     public String Nombre;
     public Ubicacion Casa;

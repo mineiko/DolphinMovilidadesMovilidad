@@ -38,15 +38,7 @@ public class MainActivity extends AppCompatActivity {
         String url = "http://movilidadessignalr20170616114841.azurewebsites.net/ServicioMock.svc/movilidades/0";
         r.Reponse(url);
 
-        SignalR.listener = new SignalR.OnMensajeRecibidoListener() {
-            @Override
-            public void MensajeRecibido(String msg) {
-                Log.i("MainActivity",msg);
-            }
-        };
 
-        SignalR conexion = new SignalR(getApplicationContext());
-        SignalR.startSignalR();
 
     }
 

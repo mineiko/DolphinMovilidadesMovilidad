@@ -11,4 +11,9 @@ public class Ubicacion {
         Latitud = lat;
         Longitud = lng;
     }
+
+    @Override
+    public String toString() {
+        return "lat: " + Latitud + ", lng: " + Longitud;
+    }
 }

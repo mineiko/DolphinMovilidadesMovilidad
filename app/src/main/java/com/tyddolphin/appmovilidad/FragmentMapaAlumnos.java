@@ -1,12 +1,18 @@
 package com.tyddolphin.appmovilidad;
 
+import android.Manifest;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
@@ -28,6 +34,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.tyddolphin.appmovilidad.datosfalsos.Ruta;
 import com.tyddolphin.appmovilidad.rest.Ubicacion;
+import com.tyddolphin.appmovilidad.signalr.SignalR;
 
 
 public class FragmentMapaAlumnos extends Fragment {
@@ -38,46 +45,73 @@ public class FragmentMapaAlumnos extends Fragment {
     Marker Movilidad;
 
     //Clases
-    class Notificaciones implements View.OnClickListener{
+    class Notificaciones implements View.OnClickListener {
         int id;
-        Notificaciones(int i){
+
+        Notificaciones(int i) {
             id = i;
         }
+
         @Override
         public void onClick(View view) {
             //Construccion de la accion del intent implicito
-            Intent intent= new Intent(getContext(),FragmentMapaAlumnos.class);
-            PendingIntent pendingIntent=PendingIntent.getActivity(getContext(),0,intent,0);
+            Intent intent = new Intent(getContext(), FragmentMapaAlumnos.class);
+            PendingIntent pendingIntent = PendingIntent.getActivity(getContext(), 0, intent, 0);
             //Construccion de la notificacion;
-            NotificationCompat.Builder builder= new NotificationCompat.Builder(getContext());
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(getContext());
             builder.setSmallIcon(R.drawable.ic_directions_bus_black_36dp);
             builder.setContentIntent(pendingIntent);
             builder.setAutoCancel(true);
             builder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.icono));
             //Polyline a = new Polyline();
-            if (id==0){
+            if (id == 0) {
                 builder.setContentTitle("Movilidad : José");
                 builder.setContentText("Inicio su Recorrido");
+
+
                 MarkerOptions moMovilidades = new MarkerOptions()
                         .position(new LatLng(-16.449572, -71.536306))
                         .title("Movilidad : José ").snippet("Llega en 5 min")
                         .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_directions_bus_black_36dp));
-               Movilidad = googlemap.addMarker(moMovilidades);
 
+                Movilidad = googlemap.addMarker(moMovilidades);
+                /*
+                Handler handler = new Handler(Looper.getMainLooper());
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        SignalR conexion= new SignalR(getContext());
+                        conexion.startSignalR();
+                        Ruta ruta = new Ruta();
+                        for ( int i = 0; i<ruta.ruta.length;i++) {
+                            conexion.NuevaUbicacion(ruta.ruta[i]);
+                            Movilidad.setPosition(new LatLng(ruta.ruta[i].Latitud,ruta.ruta[i].Longitud));
+                            Log.i("Run",ruta.ruta[i].toString());
+                            try {
+                                Thread.sleep(1000);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                    }
+                });*/
+                Hilo ruta = new Hilo(getContext(),Movilidad);
+                ruta.start();
             }
-            if (id==1){
+            if (id == 1) {
                 builder.setContentTitle("Movilidad : José");
                 builder.setContentText("Acaba de recoger a su Hij@ : María");
 
             }
-            if (id==2){
+            if (id == 2) {
                 builder.setContentTitle("Movilidad : José");
                 builder.setContentText("Alerta : Accidente");
 
             }
             //Enviar la notificacion
-            NotificationManager notificationManager= (NotificationManager)getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
-            notificationManager.notify(id,builder.build());
+            NotificationManager notificationManager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+            notificationManager.notify(id, builder.build());
         }
     }
 
@@ -109,6 +143,7 @@ public class FragmentMapaAlumnos extends Fragment {
                 googlemap = _googleMap;
                 googlemap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-16.449572, -71.536306), 18));
                 dibujarPolyline();
+
             }
         });
 
@@ -130,6 +165,7 @@ public class FragmentMapaAlumnos extends Fragment {
         mLinearLayout.addView(btnA);
         mLinearLayout.addView(btnB);
         mLinearLayout.addView(btnC);
+
 
 
 

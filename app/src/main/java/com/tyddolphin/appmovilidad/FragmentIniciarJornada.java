@@ -37,7 +37,7 @@ public class FragmentIniciarJornada extends Fragment {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getContext(), "Iniciar Jornada", Toast.LENGTH_LONG).show();
-                SignalR.enviarMensaje("Holiiii");
+                //SignalR.enviarMensaje("Holiiii");
             }
         });
         return view;

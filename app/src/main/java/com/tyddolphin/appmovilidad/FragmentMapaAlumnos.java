@@ -63,6 +63,8 @@ public class FragmentMapaAlumnos extends Fragment {
             if(Alumno02!=null)Alumno02.remove();
             if(Alumno03!=null)Alumno03.remove();
             if(Alumno04!=null)Alumno04.remove();
+            //if(Movilidad!=null)Movilidad.remove();
+            //if(Colegio!=null)Colegio.remove();
         }
         public void BorrarPolylineRuta(){
             if(polyline!=null) polyline.remove();
@@ -72,20 +74,20 @@ public class FragmentMapaAlumnos extends Fragment {
 
             MarkerOptions moAlumno01 = new MarkerOptions()
                     .position(new LatLng(-16.380715462751205, -71.52199616665655))
-                    .title("Alumno : Christian Loza ").snippet("Estado: RECOGIDO")
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_face_celeste));
+                    .title("Alumno : Christian Loza ").snippet("Estado: NO RECOGIDO")
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_face_blanco));
             MarkerOptions moAlumno02 = new MarkerOptions()
                     .position(new LatLng(-16.383741681611987, -71.520043518493708))
-                    .title("Alumno : Adriana Luque ").snippet("Estado: RECOGIDO")
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_face_celeste));
+                    .title("Alumno : Adriana Luque ").snippet("Estado: NO RECOGIDO")
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_face_blanco));
             MarkerOptions moAlumno03 = new MarkerOptions()
                     .position(new LatLng(-16.390535062986793, -71.521652843902643))
-                    .title("Alumno : Rodrigo Mendoza").snippet("Estado: RECOGIDO")
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_face_celeste));
+                    .title("Alumno : Rodrigo Mendoza").snippet("Estado: NO RECOGIDO")
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_face_blanco));
             MarkerOptions moAlumno04 = new MarkerOptions()
                     .position(new LatLng(-16.393787567781231, -71.52538647885137))
-                    .title("Alumno : Jarol Butron").snippet("Estado: RECOGIDO")
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_face_celeste));
+                    .title("Alumno : Jarol Butron").snippet("Estado: NO RECOGIDO")
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_face_blanco));
 
             Alumno01=googlemap.addMarker(moAlumno01);
             Alumno02=googlemap.addMarker(moAlumno02);
@@ -160,7 +162,7 @@ public class FragmentMapaAlumnos extends Fragment {
                 Movilidad = googlemap.addMarker(moMovilidades);
 
                 Colegio=googlemap.addMarker(moColegio);
-                Hilo ruta = new Hilo(getContext(),Movilidad);
+                Hilo ruta = new Hilo(getContext(),Movilidad, Alumno01, Alumno02, Alumno03, Alumno04 );
                 ruta.start();
             }
             if (id == 1) {
@@ -170,12 +172,20 @@ public class FragmentMapaAlumnos extends Fragment {
                         .bigText("Estado : NO VA A IR\nEl alumno Jarol Butron no va a ir en la movilidad"));
                 dibujarPolyline(id);
                 AgregarAlumniMapaNoVaIr(2);
-            }
-            if (id == 2) {
-                builder.setContentTitle("Movilidad : José")
-                .setContentText("Alerta : Accidente");
+               /* MarkerOptions moMovilidades = new MarkerOptions()
+                        .position(new LatLng(-16.449572, -71.536306))
+                        .title("Movilidad : José ").snippet("A dos minutos del siguiente Alumno")
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_bus_verde));
+                MarkerOptions moColegio = new MarkerOptions()
+                        .position(new LatLng(-16.404880000000002,-71.55035000000001))
+                        .title("Colegio : San Juan Bautista de La Salle")//.snippet("Estado: Normal")
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_school_black_36dp));
 
+                Movilidad = googlemap.addMarker(moMovilidades);
+
+                Colegio=googlemap.addMarker(moColegio);*/
             }
+
             //Enviar la notificacion
             NotificationManager notificationManager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
             notificationManager.notify(id, builder.build());

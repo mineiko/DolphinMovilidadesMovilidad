@@ -31,6 +31,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.tyddolphin.appmovilidad.datosfalsos.Ruta;
 import com.tyddolphin.appmovilidad.rest.Ubicacion;
@@ -48,7 +49,7 @@ public class FragmentMapaAlumnos extends Fragment {
     Marker Alumno03;
     Marker Alumno04;
     Marker Colegio;
-    PolylineOptions po;
+
 
     //Clases
     class Notificaciones implements View.OnClickListener {
@@ -57,10 +58,76 @@ public class FragmentMapaAlumnos extends Fragment {
         Notificaciones(int i) {
             id = i;
         }
+        public void BorrarOtrosMarkers(){
+            if(Alumno01!=null)Alumno01.remove();
+            if(Alumno02!=null)Alumno02.remove();
+            if(Alumno03!=null)Alumno03.remove();
+            if(Alumno04!=null)Alumno04.remove();
+        }
+        public void BorrarPolylineRuta(){
+            if(polyline!=null) polyline.remove();
+        }
+        public void AgregarAlumnosMapaRutaNormal(){
 
-        /*public void BorrarPolylineRuta(){
-            //if(po!=null) po.
-        }*/
+
+            MarkerOptions moAlumno01 = new MarkerOptions()
+                    .position(new LatLng(-16.380715462751205, -71.52199616665655))
+                    .title("Alumno : Christian Loza ").snippet("Estado: RECOGIDO")
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_face_celeste));
+            MarkerOptions moAlumno02 = new MarkerOptions()
+                    .position(new LatLng(-16.383741681611987, -71.520043518493708))
+                    .title("Alumno : Adriana Luque ").snippet("Estado: RECOGIDO")
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_face_celeste));
+            MarkerOptions moAlumno03 = new MarkerOptions()
+                    .position(new LatLng(-16.390535062986793, -71.521652843902643))
+                    .title("Alumno : Rodrigo Mendoza").snippet("Estado: RECOGIDO")
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_face_celeste));
+            MarkerOptions moAlumno04 = new MarkerOptions()
+                    .position(new LatLng(-16.393787567781231, -71.52538647885137))
+                    .title("Alumno : Jarol Butron").snippet("Estado: RECOGIDO")
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_face_celeste));
+
+            Alumno01=googlemap.addMarker(moAlumno01);
+            Alumno02=googlemap.addMarker(moAlumno02);
+            Alumno03=googlemap.addMarker(moAlumno03);
+            Alumno04=googlemap.addMarker(moAlumno04);
+
+        }
+        public void AgregarAlumniMapaNoVaIr(int i){
+            AgregarAlumnosMapaRutaNormal();
+            if(i ==1 ){
+                Alumno01.remove();
+                MarkerOptions moAlumno01 = new MarkerOptions()
+                        .position(new LatLng(-16.380715462751205, -71.52199616665655))
+                        .title("Alumno : Christian Loza ").snippet("Estado : NO VA A IR")
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_face_plomo));
+                Alumno01=googlemap.addMarker(moAlumno01);
+            }
+            if(i ==2 ){
+                Alumno02.remove();
+                MarkerOptions moAlumno02 = new MarkerOptions()
+                        .position(new LatLng(-16.383741681611987, -71.520043518493708))
+                        .title("Alumno : Adriana Luque ").snippet("Estado : NO VA A IR")
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_face_plomo));
+                Alumno02=googlemap.addMarker(moAlumno02);
+            }
+            if(i == 3 ){
+                Alumno03.remove();
+                MarkerOptions moAlumno03 = new MarkerOptions()
+                        .position(new LatLng(-16.390535062986793, -71.521652843902643))
+                        .title("Alumno : Rodrigo Mendoza").snippet("Estado : NO VA A IR")
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_face_plomo));
+                Alumno03=googlemap.addMarker(moAlumno03);
+            }
+            if(i == 4 ){
+                Alumno04.remove();
+                MarkerOptions moAlumno04 = new MarkerOptions()
+                        .position(new LatLng(-16.393787567781231, -71.52538647885137))
+                        .title("Alumno : Jarol Butron").snippet("Estado : NO VA A IR")
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_face_plomo));
+                Alumno04=googlemap.addMarker(moAlumno04);
+            }
+        }
 
         @Override
         public void onClick(View view) {
@@ -74,64 +141,25 @@ public class FragmentMapaAlumnos extends Fragment {
             builder.setAutoCancel(true);
             builder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.icono));
             //Polyline a = new Polyline();
+            BorrarPolylineRuta();
+            BorrarOtrosMarkers();
             if (id == 0) {
                 builder.setContentTitle("Movilidad : José");
                 builder.setContentText("Acaba de Iniciar su Recorrido");
                 dibujarPolyline(id);
-
+                AgregarAlumnosMapaRutaNormal();
                 MarkerOptions moMovilidades = new MarkerOptions()
                         .position(new LatLng(-16.449572, -71.536306))
-                        .title("Movilidad : José ").snippet("Llega en 5 min")
-                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_directions_bus_black_36dp));
-
-                MarkerOptions moAlumno01 = new MarkerOptions()
-                        .position(new LatLng(-16.380715462751205, -71.52199616665655))
-                        .title("Alumno : Christian Loza ").snippet("Estado: RECOGIDO")
-                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_face_black_36dp));
-                MarkerOptions moAlumno02 = new MarkerOptions()
-                        .position(new LatLng(-16.383741681611987, -71.520043518493708))
-                        .title("Alumno : Adriana Luque ").snippet("Estado: RECOGIDO")
-                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_face_black_36dp));
-                MarkerOptions moAlumno03 = new MarkerOptions()
-                        .position(new LatLng(-16.390535062986793, -71.521652843902643))
-                        .title("Alumno : Rodrigo Mendoza").snippet("Estado: NO VA A IR")
-                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_face_black_36dp));
-                MarkerOptions moAlumno04 = new MarkerOptions()
-                        .position(new LatLng(-16.393787567781231, -71.52538647885137))
-                        .title("Alumno : Jarol Butron").snippet("Estado: Normal")
-                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_face_black_36dp));
+                        .title("Movilidad : José ").snippet("A dos minutos del siguiente Alumno")
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_bus_verde));
                 MarkerOptions moColegio = new MarkerOptions()
                         .position(new LatLng(-16.404880000000002,-71.55035000000001))
                         .title("Colegio : San Juan Bautista de La Salle")//.snippet("Estado: Normal")
                         .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_school_black_36dp));
 
                 Movilidad = googlemap.addMarker(moMovilidades);
-                Alumno01=googlemap.addMarker(moAlumno01);
-                Alumno02=googlemap.addMarker(moAlumno02);
-                Alumno03=googlemap.addMarker(moAlumno03);
-                Alumno04=googlemap.addMarker(moAlumno04);
-                Colegio=googlemap.addMarker(moColegio);
-                /*
-                Handler handler = new Handler(Looper.getMainLooper());
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        SignalR conexion= new SignalR(getContext());
-                        conexion.startSignalR();
-                        Ruta ruta = new Ruta();
-                        for ( int i = 0; i<ruta.ruta.length;i++) {
-                            conexion.NuevaUbicacion(ruta.ruta[i]);
-                            Movilidad.setPosition(new LatLng(ruta.ruta[i].Latitud,ruta.ruta[i].Longitud));
-                            Log.i("Run",ruta.ruta[i].toString());
-                            try {
-                                Thread.sleep(1000);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-                        }
 
-                    }
-                });*/
+                Colegio=googlemap.addMarker(moColegio);
                 Hilo ruta = new Hilo(getContext(),Movilidad);
                 ruta.start();
             }
@@ -141,6 +169,7 @@ public class FragmentMapaAlumnos extends Fragment {
                 .setStyle(new NotificationCompat.BigTextStyle()
                         .bigText("Estado : NO VA A IR\nEl alumno Jarol Butron no va a ir en la movilidad"));
                 dibujarPolyline(id);
+                AgregarAlumniMapaNoVaIr(2);
             }
             if (id == 2) {
                 builder.setContentTitle("Movilidad : José")
@@ -210,23 +239,26 @@ public class FragmentMapaAlumnos extends Fragment {
         return view;
     }
 
+    Polyline polyline;
 
     private void dibujarPolyline(int i){//entre 0 y 1
-
+        PolylineOptions po = new PolylineOptions();
         if (i ==0){
             Ubicacion[] ruta = new Ruta().ruta;
-            po = new PolylineOptions();
+
             for(Ubicacion ubicacion : ruta) {
                 po.add(new LatLng(ubicacion.Latitud, ubicacion.Longitud));
             }
         }else{
             Ubicacion[] ruta = new Ruta().ruta2;
-            po = new PolylineOptions();
+            //PolylineOptions po = new PolylineOptions();
             for(Ubicacion ubicacion : ruta) {
                 po.add(new LatLng(ubicacion.Latitud, ubicacion.Longitud));
             }
         }
-        //googlemap.addPolyline(po);
+        polyline = googlemap.addPolyline(po);
+        //return polyline;
+        //
     }
 
 }

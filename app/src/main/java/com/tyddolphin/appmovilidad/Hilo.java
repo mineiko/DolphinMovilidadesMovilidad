@@ -12,13 +12,13 @@ import com.tyddolphin.appmovilidad.datosfalsos.Ruta;
 import com.tyddolphin.appmovilidad.signalr.SignalR;
 
 /**
- * Created by Gianella Milon on 22/06/2017.
+ * @author Gianella
  */
 
 public class Hilo extends Thread{
     Ruta ruta;
     int i;
-    SignalR conexion;
+    private SignalR conexion;
     Marker movilidad;
     Marker alumno1;
     Marker alumno2;
@@ -48,6 +48,7 @@ public class Hilo extends Thread{
                 }
             });
             if(i==15){
+                conexion.AlumnoRecogido(0);
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
@@ -58,6 +59,7 @@ public class Hilo extends Thread{
                 });
             }
             if(i==20){
+                conexion.AlumnoRecogido(1);
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
@@ -67,6 +69,7 @@ public class Hilo extends Thread{
                 });
             }
             if(i==34){
+                conexion.AlumnoRecogido(2);
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
@@ -77,6 +80,7 @@ public class Hilo extends Thread{
                 });
             }
             if(i==40){
+                conexion.AlumnoRecogido(3);
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
@@ -95,3 +99,4 @@ public class Hilo extends Thread{
         }
     }
 }
+

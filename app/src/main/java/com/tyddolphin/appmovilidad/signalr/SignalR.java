@@ -44,7 +44,7 @@ public class SignalR {
             signalRFuture.get();
             mConnectionID = mHubConnection.getConnectionId();
 
-            /*mHubProxy.on("Ubicacion", new SubscriptionHandler1<Ubicacion>() {//nombre del metodo, interfaz que se va a ejecutar,clase del parametro
+            /*mHubProxy.on("Ubicacion", new SubscriptionHandler1<Ubicacion>() {//nombre del método, interfaz que se va a ejecutar,clase del parametro
                 @Override
                 public void run(Ubicacion ubicacion) {
                     listener.OnUbicacionRecibida(ubicacion);
@@ -58,5 +58,17 @@ public class SignalR {
     public void NuevaUbicacion(Ubicacion ubicacion)
     {
         mHubProxy.invoke("NuevaUbicacion", ubicacion);
+    }
+    public void InicioDeRecorrido(int id)
+    {
+        mHubProxy.invoke("InicioDeRecorrido", id);
+    }
+    public void AlumnoRecogido(int id)
+    {
+        mHubProxy.invoke("AlumnoRecogido", id);
+    }
+    public void AlumnoNoVaAIr(int id)
+    {
+        mHubProxy.invoke("AlumnoNoVaAIr", id);
     }
 }

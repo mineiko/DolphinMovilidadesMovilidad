@@ -43,6 +43,11 @@ public class FragmentMapaAlumnos extends Fragment {
     GoogleMap googlemap;
     LinearLayout mLinearLayout;
     Marker Movilidad;
+    Marker Alumno01;
+    Marker Alumno02;
+    Marker Alumno03;
+    Marker Alumno04;
+    Marker Colegio;
 
     //Clases
     class Notificaciones implements View.OnClickListener {
@@ -66,7 +71,7 @@ public class FragmentMapaAlumnos extends Fragment {
             //Polyline a = new Polyline();
             if (id == 0) {
                 builder.setContentTitle("Movilidad : José");
-                builder.setContentText("Inicio su Recorrido");
+                builder.setContentText("Acaba de Iniciar su Recorrido");
 
 
                 MarkerOptions moMovilidades = new MarkerOptions()
@@ -74,7 +79,33 @@ public class FragmentMapaAlumnos extends Fragment {
                         .title("Movilidad : José ").snippet("Llega en 5 min")
                         .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_directions_bus_black_36dp));
 
+                MarkerOptions moAlumno01 = new MarkerOptions()
+                        .position(new LatLng(-16.380715462751205, -71.52199616665655))
+                        .title("Alumno : Christian Loza ").snippet("Estado: RECOGIDO")
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_face_black_36dp));
+                MarkerOptions moAlumno02 = new MarkerOptions()
+                        .position(new LatLng(-16.383741681611987, -71.520043518493708))
+                        .title("Alumno : Adriana Luque ").snippet("Estado: RECOGIDO")
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_face_black_36dp));
+                MarkerOptions moAlumno03 = new MarkerOptions()
+                        .position(new LatLng(-16.390535062986793, -71.521652843902643))
+                        .title("Alumno : Rodrigo Mendoza").snippet("Estado: NO VA A IR")
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_face_black_36dp));
+                MarkerOptions moAlumno04 = new MarkerOptions()
+                        .position(new LatLng(-16.393787567781231, -71.52538647885137))
+                        .title("Alumno : Jarol Butron").snippet("Estado: Normal")
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_face_black_36dp));
+                MarkerOptions moColegio = new MarkerOptions()
+                        .position(new LatLng(-16.404880000000002,-71.55035000000001))
+                        .title("Colegio : San Juan Bautista de La Salle")//.snippet("Estado: Normal")
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_school_black_36dp));
+
                 Movilidad = googlemap.addMarker(moMovilidades);
+                Alumno01=googlemap.addMarker(moAlumno01);
+                Alumno02=googlemap.addMarker(moAlumno02);
+                Alumno03=googlemap.addMarker(moAlumno03);
+                Alumno04=googlemap.addMarker(moAlumno04);
+                Colegio=googlemap.addMarker(moColegio);
                 /*
                 Handler handler = new Handler(Looper.getMainLooper());
                 getActivity().runOnUiThread(new Runnable() {
@@ -100,8 +131,8 @@ public class FragmentMapaAlumnos extends Fragment {
                 ruta.start();
             }
             if (id == 1) {
-                builder.setContentTitle("Movilidad : José");
-                builder.setContentText("Acaba de recoger a su Hij@ : María");
+                builder.setContentTitle("Alumno : Jarol Butron");
+                builder.setContentText("Estado : María");
 
             }
             if (id == 2) {
@@ -141,7 +172,7 @@ public class FragmentMapaAlumnos extends Fragment {
             public void onMapReady(GoogleMap _googleMap) {
 
                 googlemap = _googleMap;
-                googlemap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-16.449572, -71.536306), 18));
+                googlemap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-16.377010000000002,-71.51788), 18));
                 dibujarPolyline();
 
             }
@@ -156,7 +187,7 @@ public class FragmentMapaAlumnos extends Fragment {
         Button btnD = new Button(super.getContext());
         btnA.setText("Inicio Recorrido");
         btnA.setOnClickListener(new Notificaciones(0));
-        btnB.setText("Recogio Alumno");
+        btnB.setText("Alumno no va a ir");
         btnB.setOnClickListener(new Notificaciones(1));
         btnC.setText("Alerta Accidente");
         btnC.setOnClickListener(new Notificaciones(2));

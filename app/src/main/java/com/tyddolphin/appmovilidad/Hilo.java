@@ -35,6 +35,7 @@ public class Hilo extends Thread{
                 @Override
                 public void run() {
                     movilidad.setPosition(new LatLng(ruta.ruta[i].Latitud,ruta.ruta[i].Longitud));
+
                 }
             });
 

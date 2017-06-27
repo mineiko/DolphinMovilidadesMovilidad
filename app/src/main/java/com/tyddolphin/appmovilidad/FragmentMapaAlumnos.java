@@ -131,13 +131,14 @@ public class FragmentMapaAlumnos extends Fragment {
                 ruta.start();
             }
             if (id == 1) {
-                builder.setContentTitle("Alumno : Jarol Butron");
-                builder.setContentText("Estado : María");
-
+                builder.setContentTitle("Alumno : Jarol Butron")
+                .setContentText("Estado : NO VA A IR")
+                .setStyle(new NotificationCompat.BigTextStyle()
+                        .bigText("Estado : NO VA A IR\nEl alumno Jarol Butron no va a ir en la movilidad"));
             }
             if (id == 2) {
-                builder.setContentTitle("Movilidad : José");
-                builder.setContentText("Alerta : Accidente");
+                builder.setContentTitle("Movilidad : José")
+                .setContentText("Alerta : Accidente");
 
             }
             //Enviar la notificacion
@@ -189,13 +190,13 @@ public class FragmentMapaAlumnos extends Fragment {
         btnA.setOnClickListener(new Notificaciones(0));
         btnB.setText("Alumno no va a ir");
         btnB.setOnClickListener(new Notificaciones(1));
-        btnC.setText("Alerta Accidente");
-        btnC.setOnClickListener(new Notificaciones(2));
+        //btnC.setText("Alerta Accidente");
+        //btnC.setOnClickListener(new Notificaciones(2));
         //btnD.setText("Inicio Recorrido");
 
         mLinearLayout.addView(btnA);
         mLinearLayout.addView(btnB);
-        mLinearLayout.addView(btnC);
+        //mLinearLayout.addView(btnC);
 
 
 

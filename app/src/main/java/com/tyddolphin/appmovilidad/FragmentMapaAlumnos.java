@@ -48,6 +48,7 @@ public class FragmentMapaAlumnos extends Fragment {
     Marker Alumno03;
     Marker Alumno04;
     Marker Colegio;
+    PolylineOptions po;
 
     //Clases
     class Notificaciones implements View.OnClickListener {
@@ -56,6 +57,10 @@ public class FragmentMapaAlumnos extends Fragment {
         Notificaciones(int i) {
             id = i;
         }
+
+        /*public void BorrarPolylineRuta(){
+            //if(po!=null) po.
+        }*/
 
         @Override
         public void onClick(View view) {
@@ -72,7 +77,7 @@ public class FragmentMapaAlumnos extends Fragment {
             if (id == 0) {
                 builder.setContentTitle("Movilidad : José");
                 builder.setContentText("Acaba de Iniciar su Recorrido");
-
+                dibujarPolyline(id);
 
                 MarkerOptions moMovilidades = new MarkerOptions()
                         .position(new LatLng(-16.449572, -71.536306))
@@ -135,6 +140,7 @@ public class FragmentMapaAlumnos extends Fragment {
                 .setContentText("Estado : NO VA A IR")
                 .setStyle(new NotificationCompat.BigTextStyle()
                         .bigText("Estado : NO VA A IR\nEl alumno Jarol Butron no va a ir en la movilidad"));
+                dibujarPolyline(id);
             }
             if (id == 2) {
                 builder.setContentTitle("Movilidad : José")
@@ -174,7 +180,7 @@ public class FragmentMapaAlumnos extends Fragment {
 
                 googlemap = _googleMap;
                 googlemap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-16.377010000000002,-71.51788), 18));
-                dibujarPolyline();
+
 
             }
         });
@@ -204,13 +210,23 @@ public class FragmentMapaAlumnos extends Fragment {
         return view;
     }
 
-    private void dibujarPolyline(){
-        Ubicacion[] ruta = new Ruta().ruta;
-        PolylineOptions po = new PolylineOptions();
-        for(Ubicacion ubicacion : ruta) {
-            po.add(new LatLng(ubicacion.Latitud, ubicacion.Longitud));
+
+    private void dibujarPolyline(int i){//entre 0 y 1
+
+        if (i ==0){
+            Ubicacion[] ruta = new Ruta().ruta;
+            po = new PolylineOptions();
+            for(Ubicacion ubicacion : ruta) {
+                po.add(new LatLng(ubicacion.Latitud, ubicacion.Longitud));
+            }
+        }else{
+            Ubicacion[] ruta = new Ruta().ruta2;
+            po = new PolylineOptions();
+            for(Ubicacion ubicacion : ruta) {
+                po.add(new LatLng(ubicacion.Latitud, ubicacion.Longitud));
+            }
         }
-        googlemap.addPolyline(po);
+        //googlemap.addPolyline(po);
     }
 
 }

@@ -25,7 +25,7 @@ public class Rest {
     public interface RestListener<T>{
         void onRespuesta(T cantidad);
     }
-    public ArrayList<RestListener> getCantidadAlumnosCompleted;
+    public ArrayList<RestListener> getCantidadAlumnosCompleted = new ArrayList<>();
     Context Contexto;
     public Rest(Context c){
         this.Contexto=c;

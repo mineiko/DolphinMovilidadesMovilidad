@@ -59,7 +59,7 @@ public class SignalR {
     {
         mHubProxy.invoke("NuevaUbicacion", ubicacion);
     }
-    public void InicioDeRecorrido(int id)
+    public static void InicioDeRecorrido(int id)
     {
         mHubProxy.invoke("InicioDeRecorrido", id);
     }

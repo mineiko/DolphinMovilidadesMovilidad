@@ -242,12 +242,8 @@ public class FragmentMapaAlumnos extends Fragment {
         MapsInitializer.initialize(getActivity().getApplicationContext());
         mMapView.getMapAsync(new OnMapReadyCallback() {
             public void onMapReady(GoogleMap _googleMap) {
-
                 googlemap = _googleMap;
                 googlemap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-16.377010000000002,-71.51788), 18));
-
-
-
             }
         });
 

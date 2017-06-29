@@ -3,6 +3,7 @@ package com.tyddolphin.appmovilidad.rest;
 import android.content.Context;
 import android.util.Log;
 
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -10,6 +11,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
+import com.tyddolphin.appmovilidad.dto.DtoGenerarRuta;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -23,9 +25,11 @@ import java.util.ArrayList;
 public class Rest {
 
     public interface RestListener<T>{
-        void onRespuesta(T cantidad);
+        void onRespuesta(T respuesta);
     }
-    public ArrayList<RestListener> getCantidadAlumnosCompleted = new ArrayList<>();
+
+    public RestListener<Ubicacion[]> GenerarRutaCompleted;
+
     Context Contexto;
     public Rest(Context c){
         this.Contexto=c;
@@ -52,7 +56,40 @@ public class Rest {
         }
     }
 
+    public void GenerarRuta(Ubicacion inicio, Ubicacion fin, Ubicacion[] paradas){
+        try{
+            String url = "http://movilidadessignalr20170616114841.azurewebsites.net/ServicioMock.svc/ruta";
 
+            DtoGenerarRuta dto = new DtoGenerarRuta();
+            dto.setInicio(inicio);
+            dto.setFin(fin);
+            dto.setParadas(paradas);
+
+            Gson gson = new Gson();
+            String json = gson.toJson(dto);
+
+            JSONObject body = new JSONObject(json);
+
+            JsonArrayRequest request = new JsonArrayRequest(Request.Method.POST, url, body, new Response.Listener<JSONArray>() {
+                @Override
+                public void onResponse(JSONArray response) {
+                    Ubicacion[] ruta = new Gson().fromJson(response.toString(), Ubicacion[].class);
+                    GenerarRutaCompleted.onRespuesta(ruta);
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+                }
+            });
+            RequestQueue requestQueue = Volley.newRequestQueue(Contexto);
+            request.setTag("rest");
+            requestQueue.add(request);
+        }catch (Exception e){
+            Log.e("Rest", e.getMessage());
+            e.printStackTrace();
+        }
+    }
 
 
     public void Reponse(String url){

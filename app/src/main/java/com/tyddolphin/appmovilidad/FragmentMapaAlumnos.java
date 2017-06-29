@@ -34,6 +34,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.tyddolphin.appmovilidad.datosfalsos.Ruta;
+import com.tyddolphin.appmovilidad.rest.Rest;
 import com.tyddolphin.appmovilidad.rest.Ubicacion;
 import com.tyddolphin.appmovilidad.signalr.SignalR;
 
@@ -50,6 +51,7 @@ public class FragmentMapaAlumnos extends Fragment {
     Marker Alumno04;
     Marker Colegio;
 
+    Rest rest;
 
     //Clases
     class Notificaciones implements View.OnClickListener {
@@ -203,6 +205,30 @@ public class FragmentMapaAlumnos extends Fragment {
 
     }
 
+    // Prueba Rutas
+
+
+    public void pruebaRutas(){
+        rest.GenerarRutaCompleted = new Rest.RestListener<Ubicacion[]>() {
+            @Override
+            public void onRespuesta(Ubicacion[] respuesta) {
+                final PolylineOptions po = new PolylineOptions();
+                for (Ubicacion ubicacion : respuesta){
+                    po.add(new LatLng(ubicacion.Latitud, ubicacion.Longitud));
+                }
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        googlemap.addPolyline(po);
+                    }
+                });
+            }
+        };
+        Ubicacion inicio = new Ubicacion(-16.380664, -71.522006);
+        Ubicacion fin = new Ubicacion(-16.449797, -71.536841);
+        rest.GenerarRuta(inicio,fin, null);
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -219,6 +245,7 @@ public class FragmentMapaAlumnos extends Fragment {
 
                 googlemap = _googleMap;
                 googlemap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-16.377010000000002,-71.51788), 18));
+
 
 
             }
@@ -244,7 +271,18 @@ public class FragmentMapaAlumnos extends Fragment {
         //mLinearLayout.addView(btnC);
 
 
+        // Prueba rutas
+        Button btnRuta = new Button(super.getContext());
+        btnRuta.setText("Ruta");
+        btnRuta.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pruebaRutas();
+            }
+        });
+        mLinearLayout.addView(btnRuta);
 
+        rest = new Rest(getActivity().getApplicationContext());
 
         return view;
     }

@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         setIconoOnTab(3,R.drawable.ic_settings_white_36dp);
         setIconoOnTab(4,R.drawable.ic_help_white_36dp);
 
-        Rest r = new Rest(getApplicationContext());
+        /*Rest r = new Rest(getApplicationContext());
         String url = "http://movilidadessignalr20170616114841.azurewebsites.net/ServicioMock.svc/movilidades/0";
         r.Reponse(url);
         r.getCantidadAlumnosCompleted.add(new Rest.RestListener<Integer>() {
@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.i("","");
             }
         });
-        r.getCantidadAlumnosAsync("1");
+        r.getCantidadAlumnosAsync("1");*/
 
     }
 

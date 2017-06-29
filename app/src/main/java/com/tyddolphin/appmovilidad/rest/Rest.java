@@ -37,8 +37,8 @@ public class Rest {
             JsonArrayRequest request = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
                 @Override
                 public void onResponse(JSONArray response) {
-                    for(RestListener l : getCantidadAlumnosCompleted)
-                        l.onRespuesta(response.length());
+                    //for(RestListener l : getCantidadAlumnosCompleted)
+                        //l.onRespuesta(response.length());
                 }
             }, new Response.ErrorListener() {
                 @Override

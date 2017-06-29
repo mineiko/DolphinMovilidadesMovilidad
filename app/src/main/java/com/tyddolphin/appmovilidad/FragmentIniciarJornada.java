@@ -17,12 +17,14 @@ import android.widget.Toast;
 import com.google.android.gms.maps.model.LatLng;
 import com.tyddolphin.appmovilidad.rest.Ubicacion;
 import com.tyddolphin.appmovilidad.signalr.SignalR;
+import com.tyddolphin.appmovilidad.rest.Movilidad;
 
 
 public class FragmentIniciarJornada extends Fragment {
 
     Button btnIJ;
     LinearLayout LLOB;
+    Movilidad a;
 
 
 
@@ -46,7 +48,9 @@ public class FragmentIniciarJornada extends Fragment {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getContext(), "Acaba de Iniciar Jornada", Toast.LENGTH_LONG).show();
-                SignalR.InicioDeRecorrido(1,(new Ubicacion(-16.377030411719353,-71.51785483593756 )));
+                //Enviar mi ubicacion
+                //SignalR.InicioDeRecorrido(1,(new Ubicacion(-16.377030411719353,-71.51785483593756 )));
+                new Notificaciones(1,getContext(),FragmentMapaAlumnos.class,"Movilidad : Jose"  ,"Acaba de Iniciar su Recorrido");
                 FragmentTransaction trans = getFragmentManager()
                         .beginTransaction();
                 trans.replace(R.id.IJ, new FragmentMapaAlumnos());

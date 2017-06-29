@@ -54,7 +54,7 @@ public class FragmentMapaAlumnos extends Fragment {
     Rest rest;
 
     //Clases
-    class Notificaciones implements View.OnClickListener {
+    /*class Notificaciones implements View.OnClickListener {
         int id;
 
         Notificaciones(int i) {
@@ -135,6 +135,10 @@ public class FragmentMapaAlumnos extends Fragment {
 
         @Override
         public void onClick(View view) {
+            if(id==0){
+
+            }
+
             //Construccion de la accion del intent implicito
             Intent intent = new Intent(getContext(), FragmentMapaAlumnos.class);
             PendingIntent pendingIntent = PendingIntent.getActivity(getContext(), 0, intent, 0);
@@ -174,7 +178,7 @@ public class FragmentMapaAlumnos extends Fragment {
                         .bigText("Estado : NO VA A IR\nEl alumno Jarol Butron no va a ir en la movilidad"));
                 dibujarPolyline(id);
                 AgregarAlumniMapaNoVaIr(2);
-               /* MarkerOptions moMovilidades = new MarkerOptions()
+                MarkerOptions moMovilidades = new MarkerOptions()
                         .position(new LatLng(-16.449572, -71.536306))
                         .title("Movilidad : José ").snippet("A dos minutos del siguiente Alumno")
                         .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_bus_verde));
@@ -185,14 +189,14 @@ public class FragmentMapaAlumnos extends Fragment {
 
                 Movilidad = googlemap.addMarker(moMovilidades);
 
-                Colegio=googlemap.addMarker(moColegio);*/
+                Colegio=googlemap.addMarker(moColegio);
             }
 
             //Enviar la notificacion
             NotificationManager notificationManager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
             notificationManager.notify(id, builder.build());
         }
-    }
+    }*/
 
     public FragmentMapaAlumnos() {
         // Required empty public constructor
@@ -235,6 +239,8 @@ public class FragmentMapaAlumnos extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_mapa_alumnos, container, false);
 
+        SignalR.InicioDeRecorrido(1,(new Ubicacion(-16.377030411719353,-71.51785483593756 )));
+
         //Mapa
         mMapView = (MapView) view.findViewById(R.id.mapview);
         mMapView.onCreate(savedInstanceState);
@@ -255,15 +261,15 @@ public class FragmentMapaAlumnos extends Fragment {
         Button btnC = new Button(super.getContext());
         Button btnD = new Button(super.getContext());
         btnA.setText("Inicio Recorrido");
-        btnA.setOnClickListener(new Notificaciones(0));
+        //btnA.setOnClickListener(new Notificaciones(1,getContext(),FragmentMapaAlumnos.class,"aaa","bbb"));
         btnB.setText("Alumno no va a ir");
-        btnB.setOnClickListener(new Notificaciones(1));
+        //btnB.setOnClickListener(new Notificaciones(1));
         //btnC.setText("Alerta Accidente");
         //btnC.setOnClickListener(new Notificaciones(2));
         //btnD.setText("Inicio Recorrido");
 
         mLinearLayout.addView(btnA);
-        mLinearLayout.addView(btnB);
+        //mLinearLayout.addView(btnB);
         //mLinearLayout.addView(btnC);
 
 

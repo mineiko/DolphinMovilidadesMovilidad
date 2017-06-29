@@ -7,6 +7,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.tyddolphin.appmovilidad.rest.Rest;
 import com.tyddolphin.appmovilidad.signalr.SignalR;
@@ -37,8 +38,19 @@ public class MainActivity extends AppCompatActivity {
         Rest r = new Rest(getApplicationContext());
         String url = "http://movilidadessignalr20170616114841.azurewebsites.net/ServicioMock.svc/movilidades/0";
         r.Reponse(url);
-
-
+        r.getCantidadAlumnosCompleted.add(new Rest.RestListener<Integer>() {
+            @Override
+            public void onRespuesta(Integer cantidad) {
+                Toast.makeText(MainActivity.this,cantidad,Toast.LENGTH_LONG).show();
+            }
+        });
+        r.getCantidadAlumnosCompleted.add(new Rest.RestListener<Integer>() {
+            @Override
+            public void onRespuesta(Integer cantidad) {
+                Log.i("","");
+            }
+        });
+        r.getCantidadAlumnosAsync("1");
 
     }
 

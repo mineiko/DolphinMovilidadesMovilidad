@@ -6,22 +6,54 @@ import android.util.Log;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 /**
  * @author Gianella
  */
 
 public class Rest {
+
+    public interface RestListener<T>{
+        void onRespuesta(T cantidad);
+    }
+    public ArrayList<RestListener> getCantidadAlumnosCompleted;
     Context Contexto;
     public Rest(Context c){
         this.Contexto=c;
 
     }
+    public void getCantidadAlumnosAsync(String idMovilidad){
+        try{
+            String url = "http://movilidadessignalr20170616114841.azurewebsites.net/ServicioMock.svc/alumnosPoMovilidad/" + idMovilidad;
+            JsonArrayRequest request = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
+                @Override
+                public void onResponse(JSONArray response) {
+                    for(RestListener l : getCantidadAlumnosCompleted)
+                        l.onRespuesta(response.length());
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+                }
+            });
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+
+
 
     public void Reponse(String url){
 

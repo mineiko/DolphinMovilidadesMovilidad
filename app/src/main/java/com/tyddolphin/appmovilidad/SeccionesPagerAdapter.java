@@ -12,16 +12,29 @@ class SeccionesPagerAdapter extends FragmentPagerAdapter {
     SeccionesPagerAdapter(FragmentManager fm) {
         super(fm);
     }
+    Fragment FMA;
+    FragmentAlertas FA;
+    FragmentCuentaMovilidad FCM;
+    FragmentConfiguracion FC;
+    FragmentPreguntasFrecuentes FPF;
+
 
     @Override
     public Fragment getItem(int position) {
-        if(position==0)return new FragmentMapaAlumnos();
-        if(position==1)return new FragmentAlertas();
-        if(position==2)return new FragmentCuentaMovilidad();
-        if(position==3)return new FragmentConfiguracion();
-        if(position==4)return new FragmentPreguntasFrecuentes();
+        switch (position) {
+            case 0:
+                if(FMA == null)
+                    FMA = new FragmentMapaAlumnos();
+                return FMA;
 
-        return new FragmentIniciarJornada();
+        }
+        /*if(position==0)return new FragmentMapaAlumnos();
+        if(position==1)return FA;
+        if(position==2)return FCM;
+        if(position==3)return FC;
+        if(position==4)return FPF;*/
+
+        return null;
 
     }
 

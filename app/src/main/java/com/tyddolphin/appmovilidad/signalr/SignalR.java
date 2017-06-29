@@ -23,18 +23,19 @@ public class SignalR {
     //    void OnUbicacionRecibida(Ubicacion ubicacion);
     //}
 
-    public HubConnection mHubConnection;
-    public HubProxy mHubProxy;
-    private Context context;
+    public static HubConnection mHubConnection;
+    public static HubProxy mHubProxy;
+    private static Context context;
     public static String mConnectionID;
 
     //public OnNuevaUbicacionMovilidadListener listener;
-
-    public SignalR(Context context){
-        this.context = context;
+    private SignalR(){}
+    public static void Iniciar(Context c){
+        context = c;
+        startSignalR();
     }
 
-    public void startSignalR(){
+    public static void startSignalR(){
         try {
             Platform.loadPlatformComponent(new AndroidPlatformComponent());
             mHubConnection = new HubConnection("http://movilidadessignalr20170616114841.azurewebsites.net/realtime");
@@ -55,7 +56,7 @@ public class SignalR {
         }
     }
 
-    public void NuevaUbicacion(Ubicacion ubicacion)
+    public static void NuevaUbicacion(Ubicacion ubicacion)
     {
         mHubProxy.invoke("NuevaUbicacion", ubicacion);
     }
@@ -63,11 +64,11 @@ public class SignalR {
     {
         mHubProxy.invoke("InicioDeRecorrido", id);
     }
-    public void AlumnoRecogido(int id)
+    public static void AlumnoRecogido(int id)
     {
         mHubProxy.invoke("AlumnoRecogido", id);
     }
-    public void AlumnoNoVaAIr(int id)
+    public static void AlumnoNoVaAIr(int id)
     {
         mHubProxy.invoke("AlumnoNoVaAIr", id);
     }

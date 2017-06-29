@@ -36,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
         setIconoOnTab(3,R.drawable.ic_settings_white_36dp);
         setIconoOnTab(4,R.drawable.ic_help_white_36dp);
 
+        SignalR.Iniciar(getApplicationContext());
+
         /*Rest r = new Rest(getApplicationContext());
         String url = "http://movilidadessignalr20170616114841.azurewebsites.net/ServicioMock.svc/movilidades/0";
         r.Reponse(url);

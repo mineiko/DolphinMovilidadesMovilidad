@@ -18,7 +18,6 @@ import com.tyddolphin.appmovilidad.signalr.SignalR;
 public class Hilo extends Thread{
     Ruta ruta;
     int i;
-    private SignalR conexion;
     Marker movilidad;
     Marker alumno1;
     Marker alumno2;
@@ -26,9 +25,7 @@ public class Hilo extends Thread{
     Marker alumno4;
     Handler handler;
     public Hilo(Context c, Marker m, Marker a1, Marker a2, Marker a3, Marker a4){
-        conexion = new SignalR(c);
         handler = new Handler(c.getMainLooper());
-        conexion.startSignalR();
         movilidad = m;
         alumno1 = a1;
         alumno2 = a2;
@@ -39,7 +36,7 @@ public class Hilo extends Thread{
     public void run() {
         ruta = new Ruta();
         for ( i = 0; i<ruta.ruta.length;i++){
-            conexion.NuevaUbicacion(ruta.ruta[i]);
+            SignalR.NuevaUbicacion(ruta.ruta[i]);
             handler.post(new Runnable() {
                 @Override
                 public void run() {
@@ -48,7 +45,7 @@ public class Hilo extends Thread{
                 }
             });
             if(i==15){
-                conexion.AlumnoRecogido(0);
+                SignalR.AlumnoRecogido(0);
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
@@ -59,7 +56,7 @@ public class Hilo extends Thread{
                 });
             }
             if(i==20){
-                conexion.AlumnoRecogido(1);
+                SignalR.AlumnoRecogido(1);
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
@@ -69,7 +66,7 @@ public class Hilo extends Thread{
                 });
             }
             if(i==34){
-                conexion.AlumnoRecogido(2);
+                SignalR.AlumnoRecogido(2);
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
@@ -80,7 +77,7 @@ public class Hilo extends Thread{
                 });
             }
             if(i==40){
-                conexion.AlumnoRecogido(3);
+                SignalR.AlumnoRecogido(3);
                 handler.post(new Runnable() {
                     @Override
                     public void run() {

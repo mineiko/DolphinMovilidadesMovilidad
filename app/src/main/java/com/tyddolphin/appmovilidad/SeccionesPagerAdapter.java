@@ -13,7 +13,7 @@ class SeccionesPagerAdapter extends FragmentPagerAdapter {
         super(fm);
     }
     private Fragment fragments[] = {
-            new FragmentMapaAlumnos(),
+            new FragmentIniciarJornada(),
             new FragmentAlertas(),
             new FragmentCuentaMovilidad(),
             new FragmentConfiguracion(),

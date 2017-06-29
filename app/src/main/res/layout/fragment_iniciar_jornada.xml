@@ -3,19 +3,27 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     tools:context="com.tyddolphin.appmovilidad.FragmentIniciarJornada"
+    android:id="@+id/IJ"
     >
+
+    <LinearLayout
+        android:id="@+id/LLObutton"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true">
 
     <Button
         android:id="@+id/btnIniciarJornada"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
         android:text="Iniciar Jornada"
         android:padding="9dp"
         android:textColor="@color/colorBlanco"
         android:textStyle="bold"
         android:background="@drawable/button"
         />
+    </LinearLayout>
 
 </RelativeLayout>

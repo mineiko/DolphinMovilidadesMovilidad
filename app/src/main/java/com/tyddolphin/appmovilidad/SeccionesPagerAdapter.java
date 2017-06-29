@@ -24,8 +24,6 @@ class SeccionesPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         return fragments[position];
     }
-
-    @Override
     public int getCount() {
         return 5;
     }

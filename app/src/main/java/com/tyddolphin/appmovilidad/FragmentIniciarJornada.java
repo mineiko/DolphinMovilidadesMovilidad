@@ -47,7 +47,7 @@ public class FragmentIniciarJornada extends Fragment {
         btnIJ.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "Acaba de Iniciar Jornada", Toast.LENGTH_LONG).show();
+                //Toast.makeText(getContext(), "Acaba de Iniciar Jornada", Toast.LENGTH_LONG).show();
                 //Enviar mi ubicacion
                 //SignalR.InicioDeRecorrido(1,(new Ubicacion(-16.377030411719353,-71.51785483593756 )));
                 //en id va el id de la movilidad

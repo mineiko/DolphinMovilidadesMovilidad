@@ -29,6 +29,7 @@ public class Rest {
     }
 
     public RestListener<Ubicacion[]> GenerarRutaCompleted;
+    public RestListener<Movilidad> GetMovilidadCompleted;
 
     Context Contexto;
     public Rest(Context c){
@@ -97,6 +98,37 @@ public class Rest {
         try {
             //String url = "http://movilidadessignalr20170616114841.azurewebsites.net/ServicioMock.svc/movilidades/0";
             //HttpURLConnection conexion = (HttpURLConnection) Direccion.openConnection();
+
+            JsonObjectRequest request = new JsonObjectRequest(url, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    Log.i("rest", response.toString());
+                    Gson gson = new Gson();
+                    Movilidad mov = gson.fromJson(response.toString(),Movilidad.class);
+                    Log.i("","");
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.i("rest", error.getMessage());
+                }
+            });
+            RequestQueue requestQueue = Volley.newRequestQueue(Contexto);
+            request.setTag("rest");
+            requestQueue.add(request);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void GetInfoMovilidad(int id){
+
+
+        try {
+            String url = "http://movilidadessignalr20170616114841.azurewebsites.net/ServicioMock.svc/movilidades/"+id;
+
 
             JsonObjectRequest request = new JsonObjectRequest(url, new Response.Listener<JSONObject>() {
                 @Override

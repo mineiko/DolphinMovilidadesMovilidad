@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -37,6 +38,8 @@ import com.tyddolphin.appmovilidad.datosfalsos.Ruta;
 import com.tyddolphin.appmovilidad.rest.Rest;
 import com.tyddolphin.appmovilidad.rest.Ubicacion;
 import com.tyddolphin.appmovilidad.signalr.SignalR;
+import com.tyddolphin.appmovilidad.rest.Movilidad;
+import com.tyddolphin.appmovilidad.rest.Alumno;
 
 
 public class FragmentMapaAlumnos extends Fragment {
@@ -52,6 +55,8 @@ public class FragmentMapaAlumnos extends Fragment {
     Marker Colegio;
 
     Rest rest;
+    Rest rest1;
+    Rest rest2;
 
     //Clases
     /*class Notificaciones implements View.OnClickListener {
@@ -217,8 +222,11 @@ public class FragmentMapaAlumnos extends Fragment {
             @Override
             public void onRespuesta(Ubicacion[] respuesta) {
                 final PolylineOptions po = new PolylineOptions();
+                //Toast.makeText(getActivity(), "Ya llego la movilidad", Toast.LENGTH_SHORT).show();
                 for (Ubicacion ubicacion : respuesta){
+
                     po.add(new LatLng(ubicacion.Latitud, ubicacion.Longitud));
+
                 }
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
@@ -232,14 +240,55 @@ public class FragmentMapaAlumnos extends Fragment {
         Ubicacion fin = new Ubicacion(-16.449797, -71.536841);
         rest.GenerarRuta(inicio,fin, null);
     }
+    public Movilidad a;
+    public void ObtenerMovilidad(){
+        rest1.GetMovilidadCompleted = new Rest.RestListener<Movilidad>(){
+            @Override
+            public void onRespuesta(Movilidad respuesta) {
+                a = respuesta;
+                Ubicacion inicio = new Ubicacion(-16.380664, -71.522006);
+                Ubicacion fin = new Ubicacion(-16.449797, -71.536841);
+                Ubicacion[] u = new Ubicacion[a.Alumnos.length];
+                int i =0;
+                for (Alumno al : a.Alumnos){
+                    u[i] = a.Alumnos[i].Casa;
+                    i++;
+                }
+                Log.i("","");
+                Toast.makeText(getActivity(), "Ya llego la movilidad", Toast.LENGTH_SHORT).show();
+                rest1.GenerarRuta(inicio,fin, u);
+                //Toast.makeText(getActivity(), "Ya llego la movilidad", Toast.LENGTH_SHORT).show();
+//                getActivity().runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//
+//
+//                    }
+//                });
+
+            }
+
+        };
+        rest1.GetInfoMovilidad(0);
+    }
+
+    //public void
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        rest1 = new Rest(getActivity().getApplicationContext());
+        //
         View view = inflater.inflate(R.layout.fragment_mapa_alumnos, container, false);
 
         SignalR.InicioDeRecorrido(1,(new Ubicacion(-16.377030411719353,-71.51785483593756 )));
+
+
+
+        ObtenerMovilidad();
+        //pruebaRutas();
 
         //Mapa
         mMapView = (MapView) view.findViewById(R.id.mapview);
@@ -256,19 +305,19 @@ public class FragmentMapaAlumnos extends Fragment {
         //Botones
         mLinearLayout = (LinearLayout) view.findViewById(R.id.btn);
 
-        Button btnA = new Button(super.getContext());
-        Button btnB = new Button(super.getContext());
-        Button btnC = new Button(super.getContext());
-        Button btnD = new Button(super.getContext());
-        btnA.setText("Inicio Recorrido");
-        //btnA.setOnClickListener(new Notificaciones(1,getContext(),FragmentMapaAlumnos.class,"aaa","bbb"));
-        btnB.setText("Alumno no va a ir");
+//        Button btnA = new Button(super.getContext());
+//        Button btnB = new Button(super.getContext());
+//        Button btnC = new Button(super.getContext());
+//        Button btnD = new Button(super.getContext());
+//        btnA.setText("Inicio Recorrido");
+//        //btnA.setOnClickListener(new Notificaciones(1,getContext(),FragmentMapaAlumnos.class,"aaa","bbb"));
+//        btnB.setText("Alumno no va a ir");
         //btnB.setOnClickListener(new Notificaciones(1));
         //btnC.setText("Alerta Accidente");
         //btnC.setOnClickListener(new Notificaciones(2));
         //btnD.setText("Inicio Recorrido");
 
-        mLinearLayout.addView(btnA);
+        //mLinearLayout.addView(btnA);
         //mLinearLayout.addView(btnB);
         //mLinearLayout.addView(btnC);
 
@@ -283,8 +332,9 @@ public class FragmentMapaAlumnos extends Fragment {
             }
         });
         mLinearLayout.addView(btnRuta);
-
         rest = new Rest(getActivity().getApplicationContext());
+
+
 
         return view;
     }

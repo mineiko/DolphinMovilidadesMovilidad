@@ -137,6 +137,7 @@ public class Rest {
                     Gson gson = new Gson();
                     Movilidad mov = gson.fromJson(response.toString(),Movilidad.class);
                     Log.i("","");
+                    GetMovilidadCompleted.onRespuesta(mov);
                 }
             }, new Response.ErrorListener() {
                 @Override

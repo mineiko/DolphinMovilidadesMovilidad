@@ -9,6 +9,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.tyddolphin.appmovilidad.datosfalsos.Ruta;
+import com.tyddolphin.appmovilidad.rest.Movilidad;
 import com.tyddolphin.appmovilidad.signalr.SignalR;
 
 /**
@@ -19,18 +20,15 @@ public class Hilo extends Thread{
     Ruta ruta;
     int i;
     Marker movilidad;
-    Marker alumno1;
-    Marker alumno2;
-    Marker alumno3;
-    Marker alumno4;
+    Marker [] Alumnos;
+
     Handler handler;
-    public Hilo(Context c, Marker m, Marker a1, Marker a2, Marker a3, Marker a4){
+    public Hilo(Context c, Marker m, Marker[] a){
         handler = new Handler(c.getMainLooper());
         movilidad = m;
-        alumno1 = a1;
-        alumno2 = a2;
-        alumno3 = a3;
-        alumno4 = a4;
+        Alumnos = a;
+
+
     }
     @Override
     public void run() {

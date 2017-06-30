@@ -246,8 +246,11 @@ public class FragmentMapaAlumnos extends Fragment {
             @Override
             public void onRespuesta(Movilidad respuesta) {
                 a = respuesta;
-                Ubicacion inicio = new Ubicacion(-16.380664, -71.522006);
-                Ubicacion fin = new Ubicacion(-16.449797, -71.536841);
+                Ubicacion inicio=new Ubicacion(0,0);;
+                if(respuesta.Id==0)  inicio= new Ubicacion( -16.377030411719353,-71.51785483593756);
+                if(respuesta.Id==1)  inicio= new Ubicacion(-16.377287,  -71.560222 );
+                if(respuesta.Id==2)  inicio= new Ubicacion(-16.426182, -71.526631 );
+                Ubicacion fin = new Ubicacion(-16.405366, -71.550558);
                 Ubicacion[] u = new Ubicacion[a.Alumnos.length];
                 int i =0;
                 for (Alumno al : a.Alumnos){
@@ -269,7 +272,7 @@ public class FragmentMapaAlumnos extends Fragment {
             }
 
         };
-        rest1.GetInfoMovilidad(0);
+        rest1.GetInfoMovilidad(2);
     }
 
     //public void
@@ -280,6 +283,24 @@ public class FragmentMapaAlumnos extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rest1 = new Rest(getActivity().getApplicationContext());
+        rest1.GenerarRutaCompleted = new Rest.RestListener<Ubicacion[]>() {
+            @Override
+            public void onRespuesta(Ubicacion[] respuesta) {
+                final PolylineOptions po = new PolylineOptions();
+                //Toast.makeText(getActivity(), "Ya llego la movilidad", Toast.LENGTH_SHORT).show();
+                for (Ubicacion ubicacion : respuesta){
+
+                    po.add(new LatLng(ubicacion.Latitud, ubicacion.Longitud));
+
+                }
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        googlemap.addPolyline(po);
+                    }
+                });
+            }
+        };
         //
         View view = inflater.inflate(R.layout.fragment_mapa_alumnos, container, false);
 

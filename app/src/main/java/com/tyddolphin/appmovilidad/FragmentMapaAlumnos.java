@@ -54,7 +54,7 @@ public class FragmentMapaAlumnos extends Fragment {
     Marker Alumno04;
     Marker Colegio;
 
-    Rest rest;
+
     Rest rest1;
     Rest rest2;
 
@@ -214,39 +214,13 @@ public class FragmentMapaAlumnos extends Fragment {
 
     }
 
-    // Prueba Rutas
-
-
-    public void pruebaRutas(){
-        rest.GenerarRutaCompleted = new Rest.RestListener<Ubicacion[]>() {
-            @Override
-            public void onRespuesta(Ubicacion[] respuesta) {
-                final PolylineOptions po = new PolylineOptions();
-                //Toast.makeText(getActivity(), "Ya llego la movilidad", Toast.LENGTH_SHORT).show();
-                for (Ubicacion ubicacion : respuesta){
-
-                    po.add(new LatLng(ubicacion.Latitud, ubicacion.Longitud));
-
-                }
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        googlemap.addPolyline(po);
-                    }
-                });
-            }
-        };
-        Ubicacion inicio = new Ubicacion(-16.380664, -71.522006);
-        Ubicacion fin = new Ubicacion(-16.449797, -71.536841);
-        rest.GenerarRuta(inicio,fin, null);
-    }
     public Movilidad a;
     public void ObtenerMovilidad(){
         rest1.GetMovilidadCompleted = new Rest.RestListener<Movilidad>(){
             @Override
             public void onRespuesta(Movilidad respuesta) {
                 a = respuesta;
-                Ubicacion inicio=new Ubicacion(0,0);;
+                Ubicacion inicio=new Ubicacion(0,0);
                 if(respuesta.Id==0)  inicio= new Ubicacion( -16.377030411719353,-71.51785483593756);
                 if(respuesta.Id==1)  inicio= new Ubicacion(-16.377287,  -71.560222 );
                 if(respuesta.Id==2)  inicio= new Ubicacion(-16.426182, -71.526631 );
@@ -272,7 +246,7 @@ public class FragmentMapaAlumnos extends Fragment {
             }
 
         };
-        rest1.GetInfoMovilidad(2);
+        rest1.GetInfoMovilidad(1);
     }
 
     //public void
@@ -304,7 +278,7 @@ public class FragmentMapaAlumnos extends Fragment {
         //
         View view = inflater.inflate(R.layout.fragment_mapa_alumnos, container, false);
 
-        SignalR.InicioDeRecorrido(1,(new Ubicacion(-16.377030411719353,-71.51785483593756 )));
+        SignalR.InicioDeRecorrido(1,(new Ubicacion(-16.377287,  -71.560222 )));
 
 
 
@@ -319,12 +293,23 @@ public class FragmentMapaAlumnos extends Fragment {
         mMapView.getMapAsync(new OnMapReadyCallback() {
             public void onMapReady(GoogleMap _googleMap) {
                 googlemap = _googleMap;
-                googlemap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-16.377010000000002,-71.51788), 18));
+                googlemap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-16.377287,  -71.560222), 18));
+Ubicacion[] paradas = {new Ubicacion(-16.387371,-71.544316),
+        new Ubicacion(-16.390817,-71.54938),
+        new Ubicacion(-16.396639,-71.548622),
+        new Ubicacion(-16.399544,-71.548763),
+        new Ubicacion(-16.40501,-71.553274)};
+                MarkerOptions mo = new MarkerOptions()
+                        .position(new LatLng(-16.377287,  -71.560222))
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_bus_verde));
+                Movilidad = googlemap.addMarker(mo);
+                Hilo hilo = new Hilo(getActivity().getApplicationContext(), Movilidad,
+                        new Ubicacion(-16.377287,  -71.560222),
+                        new Ubicacion(-16.405366,-71.550558),
+                        paradas);
             }
         });
 
-        //Botones
-        mLinearLayout = (LinearLayout) view.findViewById(R.id.btn);
 
 //        Button btnA = new Button(super.getContext());
 //        Button btnB = new Button(super.getContext());
@@ -343,17 +328,7 @@ public class FragmentMapaAlumnos extends Fragment {
         //mLinearLayout.addView(btnC);
 
 
-        // Prueba rutas
-        Button btnRuta = new Button(super.getContext());
-        btnRuta.setText("Ruta");
-        btnRuta.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                pruebaRutas();
-            }
-        });
-        mLinearLayout.addView(btnRuta);
-        rest = new Rest(getActivity().getApplicationContext());
+
 
 
 

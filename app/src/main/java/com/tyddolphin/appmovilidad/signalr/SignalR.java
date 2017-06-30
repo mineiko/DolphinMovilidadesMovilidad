@@ -56,17 +56,17 @@ public class SignalR {
         }
     }
 
-    public static void NuevaUbicacion(Ubicacion ubicacion)
+    public static void NuevaUbicacion(int id, Ubicacion ubicacion)
     {
-        mHubProxy.invoke("NuevaUbicacion", ubicacion);
+        mHubProxy.invoke("NuevaUbicacion",id, ubicacion);
     }
     public static void InicioDeRecorrido(int id, Ubicacion ubicacion)
     {
         mHubProxy.invoke("InicioDeRecorrido", id, ubicacion);
     }
-    public static void AlumnoRecogido(int id)
+    public static void AlumnoRecogido(int idMovilidad, int idAlumno)
     {
-        mHubProxy.invoke("AlumnoRecogido", id);
+        mHubProxy.invoke("AlumnoRecogido", idMovilidad, idAlumno);
     }
     public static void AlumnoNoVaAIr(int id)
     {

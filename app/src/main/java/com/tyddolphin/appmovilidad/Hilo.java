@@ -10,6 +10,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.tyddolphin.appmovilidad.datosfalsos.Ruta;
 import com.tyddolphin.appmovilidad.rest.Movilidad;
+import com.tyddolphin.appmovilidad.rest.Rest;
+import com.tyddolphin.appmovilidad.rest.Ubicacion;
 import com.tyddolphin.appmovilidad.signalr.SignalR;
 
 /**
@@ -17,75 +19,92 @@ import com.tyddolphin.appmovilidad.signalr.SignalR;
  */
 
 public class Hilo extends Thread{
-    Ruta ruta;
+    Rest rest;
+    Ubicacion[] ruta;
     int i;
     Marker movilidad;
-    Marker [] Alumnos;
 
     Handler handler;
-    public Hilo(Context c, Marker m, Marker[] a){
+    public Hilo(Context c,Marker m, Ubicacion inicio, Ubicacion fin, Ubicacion[] paradas){
         handler = new Handler(c.getMainLooper());
+        rest = new Rest(c);
         movilidad = m;
-        Alumnos = a;
+        rest.GenerarRutaCompleted = new Rest.RestListener<Ubicacion[]>() {
+            @Override
+            public void onRespuesta(Ubicacion[] respuesta) {
+                ruta = respuesta;
+                start();
+            }
+        };
 
-
+        rest.GenerarRuta(inicio, fin, paradas);
     }
     @Override
     public void run() {
-        ruta = new Ruta();
-        for ( i = 0; i<ruta.ruta.length;i++){
-            SignalR.NuevaUbicacion(ruta.ruta[i]);
+        for ( i = 0; i<ruta.length;i++){
+            SignalR.NuevaUbicacion(1, ruta[i]);
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    movilidad.setPosition(new LatLng(ruta.ruta[i].Latitud,ruta.ruta[i].Longitud));
+                         movilidad.setPosition(new LatLng(ruta[i].Latitud,ruta[i].Longitud));
 
                 }
             });
-            if(i==15){
-                SignalR.AlumnoRecogido(0);
+            if(i==37){
+                SignalR.AlumnoRecogido(1,0);
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        alumno1.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.pin_face_celeste));
-                        alumno1.setSnippet("Estado: RECOGIDO");
+                        //alumno1.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.pin_face_celeste));
+                        //alumno1.setSnippet("Estado: RECOGIDO");
 
                     }
                 });
             }
-            if(i==20){
-                SignalR.AlumnoRecogido(1);
+            if(i==55){
+                SignalR.AlumnoRecogido(1,1);
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        alumno2.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.pin_face_celeste));
-                        alumno2.setSnippet("Estado: RECOGIDO");
+                        //alumno2.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.pin_face_celeste));
+                        //alumno2.setSnippet("Estado: RECOGIDO");
                     }
                 });
             }
-            if(i==34){
-                SignalR.AlumnoRecogido(2);
+            if(i==75){
+                SignalR.AlumnoRecogido(1,2);
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        alumno3.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.pin_face_celeste));
-                        alumno3.setSnippet("Estado: RECOGIDO");
+                        //alumno3.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.pin_face_celeste));
+                        //alumno3.setSnippet("Estado: RECOGIDO");
 
                     }
                 });
             }
-            if(i==40){
-                SignalR.AlumnoRecogido(3);
+            if(i==86){
+                SignalR.AlumnoRecogido(1,3);
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        alumno4.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.pin_face_celeste));
-                        alumno4.setSnippet("Estado: RECOGIDO");
+                        //alumno4.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.pin_face_celeste));
+                        //alumno4.setSnippet("Estado: RECOGIDO");
 
                     }
                 });
             }
-            Log.i("Run",ruta.ruta[i].toString());
+            if(i==109){
+                SignalR.AlumnoRecogido(1,4);
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        //alumno4.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.pin_face_celeste));
+                        //alumno4.setSnippet("Estado: RECOGIDO");
+
+                    }
+                });
+            }
+            Log.i("Run",ruta[i].toString());
             try {
                 Thread.sleep(500);
             } catch (InterruptedException e) {

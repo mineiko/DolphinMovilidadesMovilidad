@@ -16,24 +16,6 @@
 
     </com.google.android.gms.maps.MapView>
 
-    <HorizontalScrollView
 
-
-        android:layout_height="60dp"
-        android:layout_width="match_parent"
-        android:layout_gravity="bottom"
-        android:background="#DDDDDD"
-        android:scrollbars="horizontal">
-
-        <LinearLayout
-            android:id="@+id/btn"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:orientation="horizontal"
-            android:layout_margin="10dp">
-
-        </LinearLayout>
-
-    </HorizontalScrollView>
 
 </LinearLayout>

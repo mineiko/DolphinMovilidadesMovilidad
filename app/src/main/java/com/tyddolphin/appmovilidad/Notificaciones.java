@@ -18,15 +18,17 @@ public class Notificaciones  {
     Class Clase;
     String Title;
     String ContentText;
+    String TextoGrande;
 
 
 
-    public Notificaciones(int i,Context c, Class cl, String t, String CT){
+    public Notificaciones(int i,Context c, Class cl, String t, String CT, String TG){
         id = i;
         contexto = c;
         Clase = cl;
         Title = t;
         ContentText = CT;
+        TextoGrande = TG;
         GenerarNotificacion();
     }
 
@@ -40,6 +42,10 @@ public class Notificaciones  {
         builder.setLargeIcon(BitmapFactory.decodeResource(contexto.getResources(), R.drawable.icono));
         builder.setContentTitle(Title);
         builder.setContentText(ContentText);
+        if(TextoGrande != ""){
+            builder.setStyle(new NotificationCompat.BigTextStyle()
+                    .bigText(ContentText+"\n" +TextoGrande));
+        }
         NotificationManager notificationManager = (NotificationManager) contexto.getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(id,builder.build());
     }

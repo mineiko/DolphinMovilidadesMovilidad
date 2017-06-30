@@ -50,7 +50,8 @@ public class FragmentIniciarJornada extends Fragment {
                 Toast.makeText(getContext(), "Acaba de Iniciar Jornada", Toast.LENGTH_LONG).show();
                 //Enviar mi ubicacion
                 //SignalR.InicioDeRecorrido(1,(new Ubicacion(-16.377030411719353,-71.51785483593756 )));
-                new Notificaciones(1,getContext(),FragmentMapaAlumnos.class,"Movilidad : Jose"  ,"Acaba de Iniciar su Recorrido");
+                //en id va el id de la movilidad
+                new Notificaciones(1,getContext(),FragmentMapaAlumnos.class,"Movilidad : Jose"  ,"Acaba de Iniciar su Recorrido", "");
                 FragmentTransaction trans = getFragmentManager()
                         .beginTransaction();
                 trans.replace(R.id.IJ, new FragmentMapaAlumnos());

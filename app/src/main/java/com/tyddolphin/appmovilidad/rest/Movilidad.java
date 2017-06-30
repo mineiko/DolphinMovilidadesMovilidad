@@ -5,6 +5,7 @@ package com.tyddolphin.appmovilidad.rest;
  */
 
 public class Movilidad {
+    public int id;
     public String Nombre;
     public Alumno[] Alumnos;
 }

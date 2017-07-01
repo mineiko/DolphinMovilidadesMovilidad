@@ -299,14 +299,20 @@ Ubicacion[] paradas = {new Ubicacion(-16.387371,-71.544316),
         new Ubicacion(-16.396639,-71.548622),
         new Ubicacion(-16.399544,-71.548763),
         new Ubicacion(-16.40501,-71.553274)};
+                Marker[] Alumnos = new Marker[paradas.length];
                 MarkerOptions mo = new MarkerOptions()
                         .position(new LatLng(-16.377287,  -71.560222))
                         .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_bus_verde));
                 Movilidad = googlemap.addMarker(mo);
+                for(int i = 0; i<paradas.length;i++){
+                    MarkerOptions ma = new MarkerOptions().position(new LatLng(paradas[i].Latitud,paradas[i].Longitud)).icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_face_blanco));
+                    Marker temp= googlemap.addMarker(ma);
+                    Alumnos[i]=temp;
+                }
                 Hilo hilo = new Hilo(getActivity().getApplicationContext(), Movilidad,
                         new Ubicacion(-16.377287,  -71.560222),
                         new Ubicacion(-16.405366,-71.550558),
-                        paradas);
+                        Alumnos,paradas);
             }
         });
 

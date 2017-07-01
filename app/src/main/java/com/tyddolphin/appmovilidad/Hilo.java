@@ -9,6 +9,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.tyddolphin.appmovilidad.datosfalsos.Ruta;
+import com.tyddolphin.appmovilidad.rest.Alumno;
 import com.tyddolphin.appmovilidad.rest.Movilidad;
 import com.tyddolphin.appmovilidad.rest.Rest;
 import com.tyddolphin.appmovilidad.rest.Ubicacion;
@@ -23,12 +24,14 @@ public class Hilo extends Thread{
     Ubicacion[] ruta;
     int i;
     Marker movilidad;
+    Marker[] Alumnos;
 
     Handler handler;
-    public Hilo(Context c,Marker m, Ubicacion inicio, Ubicacion fin, Ubicacion[] paradas){
+    public Hilo(Context c,Marker m, Ubicacion inicio, Ubicacion fin, Marker[] a, Ubicacion[] paradas){
         handler = new Handler(c.getMainLooper());
         rest = new Rest(c);
         movilidad = m;
+        Alumnos = a;
         rest.GenerarRutaCompleted = new Rest.RestListener<Ubicacion[]>() {
             @Override
             public void onRespuesta(Ubicacion[] respuesta) {
@@ -55,8 +58,8 @@ public class Hilo extends Thread{
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        //alumno1.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.pin_face_celeste));
-                        //alumno1.setSnippet("Estado: RECOGIDO");
+                        Alumnos[0].setIcon(BitmapDescriptorFactory.fromResource(R.drawable.pin_face_celeste));
+                        Alumnos[0].setSnippet("Estado: RECOGIDO");
 
                     }
                 });
@@ -66,8 +69,8 @@ public class Hilo extends Thread{
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        //alumno2.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.pin_face_celeste));
-                        //alumno2.setSnippet("Estado: RECOGIDO");
+                        Alumnos[1].setIcon(BitmapDescriptorFactory.fromResource(R.drawable.pin_face_celeste));
+                        Alumnos[1].setSnippet("Estado: RECOGIDO");
                     }
                 });
             }
@@ -76,8 +79,8 @@ public class Hilo extends Thread{
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        //alumno3.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.pin_face_celeste));
-                        //alumno3.setSnippet("Estado: RECOGIDO");
+                        Alumnos[2].setIcon(BitmapDescriptorFactory.fromResource(R.drawable.pin_face_celeste));
+                        Alumnos[2].setSnippet("Estado: RECOGIDO");
 
                     }
                 });
@@ -87,8 +90,8 @@ public class Hilo extends Thread{
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        //alumno4.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.pin_face_celeste));
-                        //alumno4.setSnippet("Estado: RECOGIDO");
+                        Alumnos[3].setIcon(BitmapDescriptorFactory.fromResource(R.drawable.pin_face_celeste));
+                        Alumnos[3].setSnippet("Estado: RECOGIDO");
 
                     }
                 });
@@ -98,15 +101,15 @@ public class Hilo extends Thread{
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        //alumno4.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.pin_face_celeste));
-                        //alumno4.setSnippet("Estado: RECOGIDO");
+                        Alumnos[4].setIcon(BitmapDescriptorFactory.fromResource(R.drawable.pin_face_celeste));
+                        Alumnos[4].setSnippet("Estado: RECOGIDO");
 
                     }
                 });
             }
             Log.i("Run",ruta[i].toString());
             try {
-                Thread.sleep(500);
+                Thread.sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

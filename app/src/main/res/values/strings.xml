@@ -8,4 +8,7 @@
     <string name="login_label">Login</string>
     <string name="success_login_msg">Login successful</string>
     <string name="error_login_msg">Please fill any empty fields</string>
+    <string name="enviar">Enviar</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="tipoChoque">Tipo de Choque</string>
 </resources>

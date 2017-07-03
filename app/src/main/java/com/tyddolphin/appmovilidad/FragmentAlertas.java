@@ -1,7 +1,5 @@
 package com.tyddolphin.appmovilidad;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -21,12 +19,14 @@ public class FragmentAlertas extends Fragment {
     Button btnAlumnoEnfermo;
     Button btnManual;
 
+    LayoutInflater li;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
     }
-    LayoutInflater li;
+
 
 
     @Override
@@ -41,31 +41,38 @@ public class FragmentAlertas extends Fragment {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getContext(), "Alerta Accidente enviada", Toast.LENGTH_LONG).show();
-
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(getContext());
-                View mView = li.inflate(R.layout.dialog_alerta_accidente, null);
-                final EditText mEmail = (EditText) mView.findViewById(R.id.etEmail);
-                final EditText mPassword = (EditText) mView.findViewById(R.id.etPassword);
-                Button mLogin = (Button) mView.findViewById(R.id.btnLogin);
+                View mView = li.inflate(R.layout.dialog_alerta_accidente,null);
                 mBuilder.setView(mView);
                 final AlertDialog dialog = mBuilder.create();
                 dialog.show();
-                mLogin.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if(!mEmail.getText().toString().isEmpty() && !mPassword.getText().toString().isEmpty()){
-                            Toast.makeText(getContext(),
-                                    R.string.success_login_msg,
-                                    Toast.LENGTH_SHORT).show();
-                            dialog.dismiss();
-                        }else{
-                            Toast.makeText(getContext(),
-                                    R.string.error_login_msg,
-                                    Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
+
+//                AlertDialog.Builder mBuilder = new AlertDialog.Builder(getContext());
+//                View mView = li.inflate(R.layout.dialog_ejemplo, null);
+//                final EditText mEmail = (EditText) mView.findViewById(R.id.etEmail);
+//                final EditText mPassword = (EditText) mView.findViewById(R.id.etPassword);
+//                Button mLogin = (Button) mView.findViewById(R.id.btnLogin);
+//                mBuilder.setView(mView);
+//                final AlertDialog dialog = mBuilder.create();
+//                dialog.show();
+//                mLogin.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        if(!mEmail.getText().toString().isEmpty() && !mPassword.getText().toString().isEmpty()){
+//                            Toast.makeText(getContext(),
+//                                    R.string.success_login_msg,
+//                                    Toast.LENGTH_SHORT).show();
+//                            dialog.dismiss();
+//                        }else{
+//                            Toast.makeText(getContext(),
+//                                    R.string.error_login_msg,
+//                                    Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                });
                 //SignalR.enviarMensaje("Holiiii");
+
+
             }
         });
         btnTrafico= (Button) view.findViewById(R.id.button2);

@@ -14,7 +14,7 @@
         android:id="@+id/button1"
         android:layout_width="wrap_content"
         android:layout_height="109dp"
-        android:text="Accidente"
+        android:text="Choque"
         android:textStyle="bold"
         android:textSize="26dp"
         android:backgroundTint="#ff5722"

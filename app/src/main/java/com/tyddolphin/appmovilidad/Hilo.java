@@ -32,15 +32,14 @@ public class Hilo extends Thread{
         rest = new Rest(c);
         movilidad = m;
         Alumnos = a;
-        rest.GenerarRutaCompleted = new Rest.RestListener<Ubicacion[]>() {
+
+        rest.GenerarRuta(inicio, fin, paradas,new Rest.OnRutaGeneradaCallback() {
             @Override
-            public void onRespuesta(Ubicacion[] respuesta) {
-                ruta = respuesta;
+            public void onRutaGenerada(Ubicacion[] _ruta) {
+                ruta = _ruta;
                 start();
             }
-        };
-
-        rest.GenerarRuta(inicio, fin, paradas);
+        } );
     }
     @Override
     public void run() {
@@ -49,8 +48,7 @@ public class Hilo extends Thread{
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                         movilidad.setPosition(new LatLng(ruta[i].Latitud,ruta[i].Longitud));
-
+                    movilidad.setPosition(new LatLng(ruta[i].Latitud,ruta[i].Longitud));
                 }
             });
             if(i==37){

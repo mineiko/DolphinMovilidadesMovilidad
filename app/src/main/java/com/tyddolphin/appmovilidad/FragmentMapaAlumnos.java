@@ -1,26 +1,11 @@
 package com.tyddolphin.appmovilidad;
 
-import android.Manifest;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.BitmapFactory;
-import android.location.Location;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -32,9 +17,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
-import com.tyddolphin.appmovilidad.datosfalsos.Ruta;
 import com.tyddolphin.appmovilidad.rest.Rest;
 import com.tyddolphin.appmovilidad.rest.Ubicacion;
 import com.tyddolphin.appmovilidad.signalr.SignalR;
@@ -42,21 +25,12 @@ import com.tyddolphin.appmovilidad.rest.Movilidad;
 import com.tyddolphin.appmovilidad.rest.Alumno;
 
 
-public class FragmentMapaAlumnos extends Fragment {
-
-    MapView mMapView;
-    GoogleMap googlemap;
-    LinearLayout mLinearLayout;
-    Marker Movilidad;
-    Marker Alumno01;
-    Marker Alumno02;
-    Marker Alumno03;
-    Marker Alumno04;
-    Marker Colegio;
+public class FragmentMapaAlumnos extends Fragment implements
+        OnMapReadyCallback,
+        Rest.OnMovilidadObtenida,
+        Rest.OnRutaGeneradaCallback{
 
 
-    Rest rest1;
-    Rest rest2;
 
     //Clases
     /*class Notificaciones implements View.OnClickListener {
@@ -203,10 +177,16 @@ public class FragmentMapaAlumnos extends Fragment {
         }
     }*/
 
+    MapView mMapView;
+
+    GoogleMap googlemap;
+    Marker Movilidad;
+
+    Rest rest;
+
     public FragmentMapaAlumnos() {
         // Required empty public constructor
     }
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -216,106 +196,21 @@ public class FragmentMapaAlumnos extends Fragment {
 
     public Movilidad a;
     public void ObtenerMovilidad(){
-        rest1.GetMovilidadCompleted = new Rest.RestListener<Movilidad>(){
-            @Override
-            public void onRespuesta(Movilidad respuesta) {
-                a = respuesta;
-                Ubicacion inicio=new Ubicacion(0,0);
-                if(respuesta.Id==0)  inicio= new Ubicacion( -16.377030411719353,-71.51785483593756);
-                if(respuesta.Id==1)  inicio= new Ubicacion(-16.377287,  -71.560222 );
-                if(respuesta.Id==2)  inicio= new Ubicacion(-16.426182, -71.526631 );
-                Ubicacion fin = new Ubicacion(-16.405366, -71.550558);
-                Ubicacion[] u = new Ubicacion[a.Alumnos.length];
-                int i =0;
-                for (Alumno al : a.Alumnos){
-                    u[i] = a.Alumnos[i].Casa;
-                    i++;
-                }
-                Log.i("","");
-                Toast.makeText(getActivity(), "Ya llego la movilidad", Toast.LENGTH_SHORT).show();
-                rest1.GenerarRuta(inicio,fin, u);
-                //Toast.makeText(getActivity(), "Ya llego la movilidad", Toast.LENGTH_SHORT).show();
-//                getActivity().runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//
-//
-//                    }
-//                });
-
-            }
-
-        };
-        rest1.GetInfoMovilidad(1);
+        rest.GetInfoMovilidad(1, this);
     }
-
-    //public void
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        rest1 = new Rest(getActivity().getApplicationContext());
-        rest1.GenerarRutaCompleted = new Rest.RestListener<Ubicacion[]>() {
-            @Override
-            public void onRespuesta(Ubicacion[] respuesta) {
-                final PolylineOptions po = new PolylineOptions();
-                //Toast.makeText(getActivity(), "Ya llego la movilidad", Toast.LENGTH_SHORT).show();
-                for (Ubicacion ubicacion : respuesta){
-
-                    po.add(new LatLng(ubicacion.Latitud, ubicacion.Longitud));
-
-                }
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        googlemap.addPolyline(po);
-                    }
-                });
-            }
-        };
-        //
+        rest = new Rest(getActivity().getApplicationContext());
         View view = inflater.inflate(R.layout.fragment_mapa_alumnos, container, false);
 
         SignalR.InicioDeRecorrido(1,(new Ubicacion(-16.377287,  -71.560222 )));
 
-
-
         ObtenerMovilidad();
-        //pruebaRutas();
 
-        //Mapa
-        mMapView = (MapView) view.findViewById(R.id.mapview);
-        mMapView.onCreate(savedInstanceState);
-        mMapView.onResume();
-        MapsInitializer.initialize(getActivity().getApplicationContext());
-        mMapView.getMapAsync(new OnMapReadyCallback() {
-            public void onMapReady(GoogleMap _googleMap) {
-                googlemap = _googleMap;
-                googlemap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-16.377287,  -71.560222), 18));
-Ubicacion[] paradas = {new Ubicacion(-16.387371,-71.544316),
-        new Ubicacion(-16.390817,-71.54938),
-        new Ubicacion(-16.396639,-71.548622),
-        new Ubicacion(-16.399544,-71.548763),
-        new Ubicacion(-16.40501,-71.553274)};
-                Marker[] Alumnos = new Marker[paradas.length];
-                MarkerOptions mo = new MarkerOptions()
-                        .position(new LatLng(-16.377287,  -71.560222))
-                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_bus_verde));
-                Movilidad = googlemap.addMarker(mo);
-                for(int i = 0; i<paradas.length;i++){
-                    MarkerOptions ma = new MarkerOptions().position(new LatLng(paradas[i].Latitud,paradas[i].Longitud)).icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_face_blanco));
-                    Marker temp= googlemap.addMarker(ma);
-                    Alumnos[i]=temp;
-                }
-                Hilo hilo = new Hilo(getActivity().getApplicationContext(), Movilidad,
-                        new Ubicacion(-16.377287,  -71.560222),
-                        new Ubicacion(-16.405366,-71.550558),
-                        Alumnos,paradas);
-            }
-        });
-
+        CargarMapa(view, savedInstanceState);
 
 //        Button btnA = new Button(super.getContext());
 //        Button btnB = new Button(super.getContext());
@@ -333,34 +228,76 @@ Ubicacion[] paradas = {new Ubicacion(-16.387371,-71.544316),
         //mLinearLayout.addView(btnB);
         //mLinearLayout.addView(btnC);
 
-
-
-
-
-
         return view;
     }
 
-    Polyline polyline;
+    public void CargarMapa(View view, Bundle savedInstanceState){
+        mMapView = (MapView) view.findViewById(R.id.mapview);
+        mMapView.onCreate(savedInstanceState);
+        mMapView.onResume();
+        MapsInitializer.initialize(getActivity().getApplicationContext());
+        mMapView.getMapAsync(this);
+    }
 
-    private void dibujarPolyline(int i){//entre 0 y 1
-        PolylineOptions po = new PolylineOptions();
-        if (i ==0){
-            Ubicacion[] ruta = new Ruta().ruta;
-
-            for(Ubicacion ubicacion : ruta) {
-                po.add(new LatLng(ubicacion.Latitud, ubicacion.Longitud));
-            }
-        }else{
-            Ubicacion[] ruta = new Ruta().ruta2;
-            //PolylineOptions po = new PolylineOptions();
-            for(Ubicacion ubicacion : ruta) {
-                po.add(new LatLng(ubicacion.Latitud, ubicacion.Longitud));
-            }
+    @Override
+    public void onMapReady(GoogleMap _googleMap) {
+        googlemap = _googleMap;
+        googlemap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-16.377287,  -71.560222), 18));
+        Ubicacion[] paradas = {new Ubicacion(-16.387371,-71.544316),
+                new Ubicacion(-16.390817,-71.54938),
+                new Ubicacion(-16.396639,-71.548622),
+                new Ubicacion(-16.399544,-71.548763),
+                new Ubicacion(-16.40501,-71.553274)};
+        Marker[] Alumnos = new Marker[paradas.length];
+        MarkerOptions mo = new MarkerOptions()
+                .position(new LatLng(-16.377287,  -71.560222))
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_bus_verde));
+        Movilidad = googlemap.addMarker(mo);
+        for(int i = 0; i<paradas.length;i++){
+            MarkerOptions ma = new MarkerOptions().position(new LatLng(paradas[i].Latitud,paradas[i].Longitud)).icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_face_blanco));
+            Marker temp= googlemap.addMarker(ma);
+            Alumnos[i]=temp;
         }
-        polyline = googlemap.addPolyline(po);
-        //return polyline;
-        //
+        Hilo hilo = new Hilo(getActivity().getApplicationContext(), Movilidad,
+                new Ubicacion(-16.377287,  -71.560222),
+                new Ubicacion(-16.405366,-71.550558),
+                Alumnos,paradas);
+    }
+
+    @Override
+    public void onRutaGenerada(Ubicacion[] ruta) {
+        final PolylineOptions po = new PolylineOptions();
+        //Toast.makeText(getActivity(), "Ya llego la movilidad", Toast.LENGTH_SHORT).show();
+        for (Ubicacion ubicacion : ruta){
+
+            po.add(new LatLng(ubicacion.Latitud, ubicacion.Longitud));
+
+        }
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                googlemap.addPolyline(po);
+            }
+        });
+    }
+
+    @Override
+    public void onMovilidadObtenida(Movilidad movilidad) {
+        a = movilidad;
+        Ubicacion inicio=new Ubicacion(0,0);
+        if(movilidad.Id==0)  inicio= new Ubicacion( -16.377030411719353,-71.51785483593756);
+        if(movilidad.Id==1)  inicio= new Ubicacion(-16.377287,  -71.560222 );
+        if(movilidad.Id==2)  inicio= new Ubicacion(-16.426182, -71.526631 );
+        Ubicacion fin = new Ubicacion(-16.405366, -71.550558);
+        Ubicacion[] u = new Ubicacion[a.Alumnos.length];
+        int i =0;
+        for (Alumno al : a.Alumnos){
+            u[i] = a.Alumnos[i].Casa;
+            i++;
+        }
+        Log.i("","");
+        Toast.makeText(getActivity(), "Ya llego la movilidad", Toast.LENGTH_SHORT).show();
+        rest.GenerarRuta(inicio,fin, u, this);
     }
 
 }

@@ -28,7 +28,7 @@ public class Rest {
         void onRutaGenerada(Ubicacion[] ruta);
     }
 
-    public interface OnMovilidadObtenida{
+    public interface OnMovilidadObtenidaCallback{
         void onMovilidadObtenida(Movilidad movilidad);
     }
 
@@ -75,7 +75,7 @@ public class Rest {
     }
 
 
-    public void GetInfoMovilidad(int id, final OnMovilidadObtenida onMovilidadObtenida){
+    public void GetInfoMovilidad(int id, final OnMovilidadObtenidaCallback onMovilidadObtenidaCallback){
 
 
         try {
@@ -89,7 +89,7 @@ public class Rest {
                     Gson gson = new Gson();
                     Movilidad mov = gson.fromJson(response.toString(),Movilidad.class);
                     Log.i("","");
-                    onMovilidadObtenida.onMovilidadObtenida(mov);
+                    onMovilidadObtenidaCallback.onMovilidadObtenida(mov);
                 }
             }, new Response.ErrorListener() {
                 @Override

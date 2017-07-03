@@ -27,7 +27,7 @@ import com.tyddolphin.appmovilidad.rest.Alumno;
 
 public class FragmentMapaAlumnos extends Fragment implements
         OnMapReadyCallback,
-        Rest.OnMovilidadObtenida,
+        Rest.OnMovilidadObtenidaCallback,
         Rest.OnRutaGeneradaCallback{
 
 

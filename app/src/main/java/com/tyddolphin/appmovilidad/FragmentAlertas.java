@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 
@@ -18,6 +20,10 @@ public class FragmentAlertas extends Fragment {
     Button btnFallaMec;
     Button btnAlumnoEnfermo;
     Button btnManual;
+
+    private RadioGroup radioGroup;
+    private RadioButton radioButton;
+
 
     LayoutInflater li;
 
@@ -42,13 +48,14 @@ public class FragmentAlertas extends Fragment {
             public void onClick(View view) {
                 //Toast.makeText(getContext(), "Alerta Accidente enviada", Toast.LENGTH_LONG).show();
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(getContext());
-                View mView = li.inflate(R.layout.dialog_alerta_accidente,null);
+                final View mView = li.inflate(R.layout.dialog_alerta_accidente,null);
 
                 Button BTNEnviar = (Button) mView.findViewById(R.id.btnEnviar);
                 Button BTNCancelar = (Button) mView.findViewById(R.id.btnCancelar);
                 mBuilder.setView(mView);
                 final AlertDialog dialog = mBuilder.create();
                 dialog.show();
+                radioGroup = (RadioGroup) mView.findViewById(R.id.TiposDeChoque);
 
                 BTNCancelar.setOnClickListener(new  View.OnClickListener(){
 
@@ -59,13 +66,22 @@ public class FragmentAlertas extends Fragment {
                     }
                 });
 
-                BTNEnviar.setOnClickListener(new View.OnClickListener(){
+                BTNEnviar.setOnClickListener(new View.OnClickListener() {
 
                     @Override
-                    public void onClick(View view) {
-                        
+                    public void onClick(View v) {
+
+                        // get selected radio button from radioGroup
+                        int selectedId = radioGroup.getCheckedRadioButtonId();
+
+                        // find the radiobutton by returned id
+                        radioButton = (RadioButton) mView.findViewById(selectedId);
+
+                        Toast.makeText(getContext(), radioButton.getText(), Toast.LENGTH_SHORT).show();
+                        dialog.cancel();
 
                     }
+
                 });
 
 

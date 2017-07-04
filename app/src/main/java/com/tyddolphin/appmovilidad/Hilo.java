@@ -48,7 +48,7 @@ public class Hilo extends Thread{
     @Override
     public void run() {
         for ( i = 0; i<ruta.length;i++){
-            SignalR.NuevaUbicacion(1, ruta[i]);
+            SignalR.NuevaUbicacion(movilidad.Id, ruta[i]);
             handler.post(new Runnable() {
                 @Override
                 public void run() {
@@ -58,7 +58,7 @@ public class Hilo extends Thread{
 
             for (j = 0; j < movilidad.Alumnos.length; j++){
                 if (ruta[i].equals(movilidad.Alumnos[j].Casa)){
-                    SignalR.AlumnoRecogido(movilidad.Alumnos[j].Id,movilidad.Id);
+                    SignalR.AlumnoRecogido(movilidad.Id,movilidad.Alumnos[j].Id);
                     handler.post(new Runnable() {
                         @Override
                         public void run() {

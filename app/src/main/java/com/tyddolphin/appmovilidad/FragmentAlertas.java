@@ -40,12 +40,36 @@ public class FragmentAlertas extends Fragment {
         btnAccidente.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "Alerta Accidente enviada", Toast.LENGTH_LONG).show();
+                //Toast.makeText(getContext(), "Alerta Accidente enviada", Toast.LENGTH_LONG).show();
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(getContext());
                 View mView = li.inflate(R.layout.dialog_alerta_accidente,null);
+
+                Button BTNEnviar = (Button) mView.findViewById(R.id.btnEnviar);
+                Button BTNCancelar = (Button) mView.findViewById(R.id.btnCancelar);
                 mBuilder.setView(mView);
                 final AlertDialog dialog = mBuilder.create();
                 dialog.show();
+
+                BTNCancelar.setOnClickListener(new  View.OnClickListener(){
+
+                    @Override
+                    public void onClick(View view) {
+                        Toast.makeText(getContext(),"Elección de Alerta : Choque , cancelada", Toast.LENGTH_LONG).show();
+                        dialog.cancel();
+                    }
+                });
+
+                BTNEnviar.setOnClickListener(new View.OnClickListener(){
+
+                    @Override
+                    public void onClick(View view) {
+                        
+
+                    }
+                });
+
+
+
 
 //                AlertDialog.Builder mBuilder = new AlertDialog.Builder(getContext());
 //                View mView = li.inflate(R.layout.dialog_ejemplo, null);

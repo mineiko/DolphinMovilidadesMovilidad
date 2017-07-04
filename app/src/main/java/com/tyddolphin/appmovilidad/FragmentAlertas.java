@@ -7,7 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -23,6 +25,29 @@ public class FragmentAlertas extends Fragment {
 
     private RadioGroup radioGroup;
     private RadioButton radioButton;
+
+    LinearLayout ListaAlumnos;
+    public static String[] Alumnos = {
+            "Arte",
+            "Computación",
+            "Ingeniería civil",
+            "Bioquímica",
+            "Música",
+            "Astronomía",
+            "Zoología",
+            "Computación",
+            "Ingeniería civil",
+            "Bioquímica",
+            "Música",
+            "Astronomía",
+            "Zoología",
+            "Computación",
+            "Ingeniería civil",
+            "Bioquímica",
+            "Música",
+            "Astronomía",
+            "Zoología"
+    };
 
 
     LayoutInflater li;
@@ -131,11 +156,65 @@ public class FragmentAlertas extends Fragment {
                 //SignalR.enviarMensaje("Holiiii");
             }
         });
+
+
+        //ListaAlumnos.addView(Alumno);
+        //ListaAlumnos.addView(Alumno2);
+
         btnAlumnoEnfermo = (Button) view.findViewById(R.id.button4);
         btnAlumnoEnfermo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getContext(), "Alerta Alumno Enfermo enviada", Toast.LENGTH_LONG).show();
+                AlertDialog.Builder mBuilder = new AlertDialog.Builder(getContext());
+                final View mView = li.inflate(R.layout.dialog_alumno_enfermo,null);
+
+                Button BTNEnviar = (Button) mView.findViewById(R.id.btnEnviar);
+                Button BTNCancelar = (Button) mView.findViewById(R.id.btnCancelar);
+                ListaAlumnos = (LinearLayout) mView.findViewById(R.id.LLOListaAlumnos);
+                for (String alumno : Alumnos) {
+                    CheckBox opcion = new CheckBox(getContext());
+                    opcion.setText(alumno);
+                    opcion.setLayoutParams(
+                            new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+                    ListaAlumnos.addView(opcion);
+                }
+//                CheckBox Alumno = new CheckBox(getContext());
+//                CheckBox Alumno2 = new CheckBox(getContext());
+//
+//                Alumno.setText("Adriana Luque");
+//                Alumno2.setText("Christian Lopez");
+                mBuilder.setView(mView);
+                final AlertDialog dialog = mBuilder.create();
+                dialog.show();
+                //radioGroup = (RadioGroup) mView.findViewById(R.id.TiposDeChoque);
+
+                BTNCancelar.setOnClickListener(new  View.OnClickListener(){
+
+                    @Override
+                    public void onClick(View view) {
+                        Toast.makeText(getContext(),"Elección de Alerta : Alumno Enfermo , cancelada", Toast.LENGTH_LONG).show();
+                        dialog.cancel();
+                    }
+                });
+
+                BTNEnviar.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+
+                        // get selected radio button from radioGroup
+                        //int selectedId = radioGroup.getCheckedRadioButtonId();
+
+                        // find the radiobutton by returned id
+                        //radioButton = (RadioButton) mView.findViewById(selectedId);
+
+                        Toast.makeText(getContext(), "", Toast.LENGTH_SHORT).show();
+                        dialog.cancel();
+
+                    }
+
+                });
                 //SignalR.enviarMensaje("Holiiii");
             }
         });

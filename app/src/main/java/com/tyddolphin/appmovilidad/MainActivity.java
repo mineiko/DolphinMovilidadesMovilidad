@@ -26,15 +26,15 @@ public class MainActivity extends AppCompatActivity {
         mViewPager = (ViewPager) findViewById(R.id.container);
         mSeccionesPagerAdapter = new SeccionesPagerAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(mSeccionesPagerAdapter);
-        mViewPager.setOffscreenPageLimit(5);
+        mViewPager.setOffscreenPageLimit(4);
         Tabs.setupWithViewPager(mViewPager);
 
 
         setIconoOnTab(0,R.drawable.ic_person_pin_circle_white_36dp);
         setIconoOnTab(1,R.drawable.ic_report_white_36dp);
         setIconoOnTab(2,R.drawable.ic_account_box_white_36dp);
-        setIconoOnTab(3,R.drawable.ic_settings_white_36dp);
-        setIconoOnTab(4,R.drawable.ic_help_white_36dp);
+        //setIconoOnTab(3,R.drawable.ic_settings_white_36dp);
+        setIconoOnTab(3,R.drawable.ic_help_white_36dp);
 
         SignalR.Iniciar(getApplicationContext());
 

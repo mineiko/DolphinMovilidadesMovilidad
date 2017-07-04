@@ -30,8 +30,6 @@ public class FragmentMapaAlumnos extends Fragment implements
         Rest.OnMovilidadObtenidaCallback,
         Rest.OnRutaGeneradaCallback{
 
-
-
     //Clases
     /*class Notificaciones implements View.OnClickListener {
         int id;
@@ -177,10 +175,18 @@ public class FragmentMapaAlumnos extends Fragment implements
         }
     }*/
 
+    Ubicacion[] ubicacionMovilidades = {
+            new Ubicacion( -16.377030411719353,-71.51785483593756),
+            new Ubicacion(-16.377287,  -71.560222 ),
+            new Ubicacion(-16.426182, -71.526631 )
+    };
+    public int n_movilidad = 0;
+
     MapView mMapView;
 
     GoogleMap googlemap;
-    Marker Movilidad;
+    Marker MarcadorMovilidad;
+    Marker[] MarcadoresAlumnos;
 
     Rest rest;
 
@@ -196,7 +202,7 @@ public class FragmentMapaAlumnos extends Fragment implements
 
     public Movilidad a;
     public void ObtenerMovilidad(){
-        rest.GetInfoMovilidad(1, this);
+        rest.GetInfoMovilidad(n_movilidad, this);
     }
 
     @Override
@@ -206,9 +212,6 @@ public class FragmentMapaAlumnos extends Fragment implements
         rest = new Rest(getActivity().getApplicationContext());
         View view = inflater.inflate(R.layout.fragment_mapa_alumnos, container, false);
 
-        SignalR.InicioDeRecorrido(1,(new Ubicacion(-16.377287,  -71.560222 )));
-
-        ObtenerMovilidad();
 
         CargarMapa(view, savedInstanceState);
 
@@ -242,26 +245,16 @@ public class FragmentMapaAlumnos extends Fragment implements
     @Override
     public void onMapReady(GoogleMap _googleMap) {
         googlemap = _googleMap;
-        googlemap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-16.377287,  -71.560222), 18));
-        Ubicacion[] paradas = {new Ubicacion(-16.387371,-71.544316),
-                new Ubicacion(-16.390817,-71.54938),
-                new Ubicacion(-16.396639,-71.548622),
-                new Ubicacion(-16.399544,-71.548763),
-                new Ubicacion(-16.40501,-71.553274)};
-        Marker[] Alumnos = new Marker[paradas.length];
-        MarkerOptions mo = new MarkerOptions()
-                .position(new LatLng(-16.377287,  -71.560222))
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_bus_verde));
-        Movilidad = googlemap.addMarker(mo);
-        for(int i = 0; i<paradas.length;i++){
-            MarkerOptions ma = new MarkerOptions().position(new LatLng(paradas[i].Latitud,paradas[i].Longitud)).icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_face_blanco));
-            Marker temp= googlemap.addMarker(ma);
-            Alumnos[i]=temp;
-        }
-        Hilo hilo = new Hilo(getActivity().getApplicationContext(), Movilidad,
-                new Ubicacion(-16.377287,  -71.560222),
-                new Ubicacion(-16.405366,-71.550558),
-                Alumnos,paradas);
+
+        googlemap.moveCamera(CameraUpdateFactory.newLatLngZoom(
+                new LatLng(ubicacionMovilidades[n_movilidad].Latitud, ubicacionMovilidades[n_movilidad].Longitud), 15));
+
+        SignalR.InicioDeRecorrido(n_movilidad, ubicacionMovilidades[n_movilidad]);
+
+        ObtenerMovilidad();
+
+
+
     }
 
     @Override
@@ -284,20 +277,31 @@ public class FragmentMapaAlumnos extends Fragment implements
     @Override
     public void onMovilidadObtenida(Movilidad movilidad) {
         a = movilidad;
-        Ubicacion inicio=new Ubicacion(0,0);
-        if(movilidad.Id==0)  inicio= new Ubicacion( -16.377030411719353,-71.51785483593756);
-        if(movilidad.Id==1)  inicio= new Ubicacion(-16.377287,  -71.560222 );
-        if(movilidad.Id==2)  inicio= new Ubicacion(-16.426182, -71.526631 );
         Ubicacion fin = new Ubicacion(-16.405366, -71.550558);
-        Ubicacion[] u = new Ubicacion[a.Alumnos.length];
-        int i =0;
-        for (Alumno al : a.Alumnos){
-            u[i] = a.Alumnos[i].Casa;
-            i++;
-        }
         Log.i("","");
         Toast.makeText(getActivity(), "Ya llego la movilidad", Toast.LENGTH_SHORT).show();
-        rest.GenerarRuta(inicio,fin, u, this);
+
+        Ubicacion posicionMovilidad = ubicacionMovilidades[movilidad.Id];
+        MarkerOptions mo = new MarkerOptions()
+                .position(new LatLng(posicionMovilidad.Latitud,  posicionMovilidad.Longitud))
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_bus_verde));
+        MarcadorMovilidad = googlemap.addMarker(mo);
+        MarcadoresAlumnos = new Marker[movilidad.Alumnos.length];
+        Ubicacion[] paradas = new Ubicacion[movilidad.Alumnos.length];
+        for (int i = 0; i <movilidad.Alumnos.length; i++){
+            MarkerOptions markerOptions = new MarkerOptions()
+                    .position(new LatLng(movilidad.Alumnos[i].Casa.Latitud, movilidad.Alumnos[i].Casa.Longitud))
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_face_blanco));
+            MarcadoresAlumnos[i] = googlemap.addMarker(markerOptions);
+            paradas[i] = movilidad.Alumnos[i].Casa;
+        }
+        Hilo hilo = new Hilo(getActivity().getApplicationContext(), movilidad, MarcadorMovilidad, MarcadoresAlumnos,
+                ubicacionMovilidades[n_movilidad],
+                new Ubicacion(-16.405366, -71.550558),
+                paradas
+        );
+
+        rest.GenerarRuta(posicionMovilidad,fin, paradas, this);
     }
 
 }

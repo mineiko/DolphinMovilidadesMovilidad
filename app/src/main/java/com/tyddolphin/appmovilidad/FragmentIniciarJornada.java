@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -19,6 +20,8 @@ import com.tyddolphin.appmovilidad.rest.Ubicacion;
 import com.tyddolphin.appmovilidad.signalr.SignalR;
 import com.tyddolphin.appmovilidad.rest.Movilidad;
 
+import static java.lang.Integer.parseInt;
+
 
 public class FragmentIniciarJornada extends Fragment {
 
@@ -26,7 +29,7 @@ public class FragmentIniciarJornada extends Fragment {
     LinearLayout LLOB;
     Movilidad a;
 
-
+    EditText txtNumeroMovilidad;
 
 
     @Override
@@ -44,6 +47,8 @@ public class FragmentIniciarJornada extends Fragment {
         LLOB = (LinearLayout) view.findViewById(R.id.LLObutton);
         btnIJ = (Button) view.findViewById(R.id.btnIniciarJornada);
 
+        txtNumeroMovilidad = (EditText)view.findViewById(R.id.txtNumeroMovilidad);
+
         btnIJ.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -54,7 +59,10 @@ public class FragmentIniciarJornada extends Fragment {
                 new Notificaciones(1,getContext(),FragmentMapaAlumnos.class,"Movilidad : Jose"  ,"Acaba de Iniciar su Recorrido", "");
                 FragmentTransaction trans = getFragmentManager()
                         .beginTransaction();
-                trans.replace(R.id.IJ, new FragmentMapaAlumnos());
+                FragmentMapaAlumnos f = new FragmentMapaAlumnos();
+                int mov = txtNumeroMovilidad.getText().toString().equals("") ? 0 : Integer.parseInt(txtNumeroMovilidad.getText().toString());
+                f.n_movilidad = mov;
+                trans.replace(R.id.IJ, f);
                 //trans.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                 //trans.addToBackStack(null);
                 trans.commit();

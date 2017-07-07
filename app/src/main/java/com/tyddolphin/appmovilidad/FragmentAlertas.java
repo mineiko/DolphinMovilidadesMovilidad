@@ -28,25 +28,11 @@ public class FragmentAlertas extends Fragment {
 
     LinearLayout ListaAlumnos;
     public static String[] Alumnos = {
-            "Arte",
-            "Computación",
-            "Ingeniería civil",
-            "Bioquímica",
-            "Música",
-            "Astronomía",
-            "Zoología",
-            "Computación",
-            "Ingeniería civil",
-            "Bioquímica",
-            "Música",
-            "Astronomía",
-            "Zoología",
-            "Computación",
-            "Ingeniería civil",
-            "Bioquímica",
-            "Música",
-            "Astronomía",
-            "Zoología"
+            "Juan Salas",
+            "Jose Muñoz",
+            "Maria Mendoza",
+            "Adriana Martinez",
+            "Karen Espinoza"
     };
 
 
@@ -165,9 +151,9 @@ public class FragmentAlertas extends Fragment {
         btnAlumnoEnfermo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "Alerta Alumno Enfermo enviada", Toast.LENGTH_LONG).show();
+
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(getContext());
-                final View mView = li.inflate(R.layout.dialog_alumno_enfermo,null);
+                final View mView = li.inflate(R.layout.dialog_alerta_alumno_enfermo,null);
 
                 Button BTNEnviar = (Button) mView.findViewById(R.id.btnEnviar);
                 Button BTNCancelar = (Button) mView.findViewById(R.id.btnCancelar);
@@ -175,6 +161,7 @@ public class FragmentAlertas extends Fragment {
                 for (String alumno : Alumnos) {
                     CheckBox opcion = new CheckBox(getContext());
                     opcion.setText(alumno);
+                    opcion.setTextSize(14);
                     opcion.setLayoutParams(
                             new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
                     ListaAlumnos.addView(opcion);
@@ -209,7 +196,7 @@ public class FragmentAlertas extends Fragment {
                         // find the radiobutton by returned id
                         //radioButton = (RadioButton) mView.findViewById(selectedId);
 
-                        Toast.makeText(getContext(), "", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Alerta Alumno Enfermo enviada", Toast.LENGTH_LONG).show();
                         dialog.cancel();
 
                     }
@@ -222,7 +209,36 @@ public class FragmentAlertas extends Fragment {
         btnManual.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "Alerta Manual: Accidente Leve, enviada", Toast.LENGTH_LONG).show();
+                AlertDialog.Builder mBuilder = new AlertDialog.Builder(getContext());
+                View mView = li.inflate(R.layout.dialog_alerta_manual, null);
+                final EditText mManual = (EditText) mView.findViewById(R.id.etmanual);
+                Button BTNEnviar = (Button) mView.findViewById(R.id.btnEnviar);
+                Button BTNCancelar = (Button) mView.findViewById(R.id.btnCancelar);
+
+
+
+                mBuilder.setView(mView);
+                final AlertDialog dialog = mBuilder.create();
+                dialog.show();
+                BTNCancelar.setOnClickListener(new  View.OnClickListener(){
+
+                    @Override
+                    public void onClick(View view) {
+                        Toast.makeText(getContext(),"Elección de Alerta : Alerta Manual , cancelada", Toast.LENGTH_LONG).show();
+                        dialog.cancel();
+                    }
+                });
+                BTNEnviar.setOnClickListener(new  View.OnClickListener(){
+
+                    @Override
+                    public void onClick(View view) {
+                        Toast.makeText(getContext(),"Elección de Alerta : Alerta Manual , enviada", Toast.LENGTH_LONG).show();
+                        dialog.cancel();
+                    }
+                });
+
+
+                //Toast.makeText(getContext(), "Alerta Manual: Accidente Leve, enviada", Toast.LENGTH_LONG).show();
                 //SignalR.enviarMensaje("Holiiii");
             }
         });

@@ -22,6 +22,9 @@
             <Button
                 android:id="@+id/button1"
                 android:text="Choque"
+                android:textSize="23dp"
+                android:backgroundTint="#ff5722"
+                android:textStyle="bold"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -30,6 +33,9 @@
             <Button
                 android:id="@+id/button2"
                 android:text="Tráfico"
+                android:textSize="23dp"
+                android:backgroundTint="#ffee58"
+                android:textStyle="bold"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -46,6 +52,9 @@
             <Button
                 android:id="@+id/button3"
                 android:text="Falla Mecanica"
+                android:textSize="23dp"
+                android:backgroundTint="#ffee58"
+                android:textStyle="bold"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -54,6 +63,9 @@
             <Button
                 android:id="@+id/button4"
                 android:text="Alumno Enfermo"
+                android:textSize="23dp"
+                android:backgroundTint="#ffa726"
+                android:textStyle="bold"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -70,6 +82,9 @@
             <Button
                 android:id="@+id/button5"
                 android:text="Alerta Manual"
+                android:textSize="23dp"
+
+                android:textStyle="bold"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"

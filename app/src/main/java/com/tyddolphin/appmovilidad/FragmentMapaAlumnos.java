@@ -301,7 +301,7 @@ public class FragmentMapaAlumnos extends Fragment implements
             MarcadoresAlumnos[i] = googlemap.addMarker(markerOptions);
             paradas[i] = movilidad.Alumnos[i].Casa;
         }
-        Hilo hilo = new Hilo(getActivity().getApplicationContext(), movilidad, MarcadorMovilidad, MarcadoresAlumnos,
+        Hilo hilo = new Hilo(getActivity().getApplicationContext(), googlemap, movilidad, MarcadorMovilidad, MarcadoresAlumnos,
                 ubicacionMovilidades[n_movilidad],
                 new Ubicacion(-16.405366, -71.550558),
                 paradas

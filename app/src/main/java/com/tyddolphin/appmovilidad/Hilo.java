@@ -6,6 +6,7 @@ import android.util.Log;
 
 
 import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -28,14 +29,16 @@ public class Hilo extends Thread{
     Movilidad movilidad;
     Marker MarcadorMovilidad;
     Marker[] MarcadoresAlumnos;
+    GoogleMap mapa;
 
     Handler handler;
-    public Hilo(Context c, Movilidad _movilidad, Marker m_movilidad, Marker[] m_alumnos, Ubicacion inicio, Ubicacion fin, Ubicacion[] paradas){
+    public Hilo(Context c, GoogleMap _mapa, Movilidad _movilidad, Marker m_movilidad, Marker[] m_alumnos, Ubicacion inicio, Ubicacion fin, Ubicacion[] paradas){
         handler = new Handler(c.getMainLooper());
         rest = new Rest(c);
         movilidad = _movilidad;
         MarcadoresAlumnos = m_alumnos;
         MarcadorMovilidad = m_movilidad;
+        mapa = _mapa;
 
 
         rest.GenerarRuta(inicio, fin, paradas,new Rest.OnRutaGeneradaCallback() {
@@ -54,7 +57,7 @@ public class Hilo extends Thread{
                 @Override
                 public void run() {
                     MarcadorMovilidad.setPosition(new LatLng(ruta[i].Latitud,ruta[i].Longitud));
-
+                    mapa.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(ruta[i].Latitud,ruta[i].Longitud)));
                 }
             });
 
@@ -75,7 +78,7 @@ public class Hilo extends Thread{
 
             Log.i("Run",ruta[i].toString());
             try {
-                Thread.sleep(300);
+                Thread.sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -188,6 +189,7 @@ public class FragmentMapaAlumnos extends Fragment implements
     Marker MarcadorMovilidad;
     Marker[] MarcadoresAlumnos;
 
+    Marker Colegio;
     Rest rest;
 
     public FragmentMapaAlumnos() {
@@ -249,6 +251,10 @@ public class FragmentMapaAlumnos extends Fragment implements
         googlemap.moveCamera(CameraUpdateFactory.newLatLngZoom(
                 new LatLng(ubicacionMovilidades[n_movilidad].Latitud, ubicacionMovilidades[n_movilidad].Longitud), 15));
 
+        MarkerOptions markerOptions = new MarkerOptions()
+                .position(new LatLng(-16.405366, -71.550558))
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_school_black_36dp));
+        Colegio = googlemap.addMarker(markerOptions);
         SignalR.InicioDeRecorrido(n_movilidad, ubicacionMovilidades[n_movilidad]);
 
         ObtenerMovilidad();

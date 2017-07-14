@@ -5,6 +5,8 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 import android.view.View;
 
@@ -33,6 +35,8 @@ public class Notificaciones  {
     }
 
     public void GenerarNotificacion(){
+        long[] vibrate = { 0, 100, 200, 300 };
+        Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         Intent intent = new Intent(contexto, Clase);
         PendingIntent pendingIntent = PendingIntent.getActivity(contexto, 0, intent, 0);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(contexto);
@@ -42,6 +46,8 @@ public class Notificaciones  {
         builder.setLargeIcon(BitmapFactory.decodeResource(contexto.getResources(), R.drawable.icono));
         builder.setContentTitle(Title);
         builder.setContentText(ContentText);
+        builder.setVibrate(vibrate);
+        builder.setSound(alarmSound);
         if(TextoGrande != ""){
             builder.setStyle(new NotificationCompat.BigTextStyle()
                     .bigText(ContentText+"\n" +TextoGrande));

@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -17,11 +18,16 @@ import android.widget.Toast;
 
 public class FragmentAlertas extends Fragment {
 
-    Button btnAccidente;
-    Button btnTrafico;
-    Button btnFallaMec;
-    Button btnAlumnoEnfermo;
-    Button btnManual;
+    ImageButton btnAccidente;
+    ImageButton btnTrafico;
+    ImageButton btnFallaMec;
+    ImageButton btnAlumnoEnfermo;
+    ImageButton btnManual;
+//    Button btnAccidente;
+//    Button btnTrafico;
+//    Button btnFallaMec;
+//    Button btnAlumnoEnfermo;
+//    Button btnManual;
 
     private RadioGroup radioGroup;
     private RadioButton radioButton;
@@ -53,7 +59,9 @@ public class FragmentAlertas extends Fragment {
         View view= inflater.inflate(R.layout.fragment_alertas, container, false);
 
         li = getLayoutInflater(savedInstanceState);
-        btnAccidente = (Button) view.findViewById(R.id.button1);
+        btnAccidente = (ImageButton) view.findViewById(R.id.choque);
+
+        //btnAccidente = (Button) view.findViewById(R.id.button1);
         btnAccidente.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -126,7 +134,7 @@ public class FragmentAlertas extends Fragment {
 
             }
         });
-        btnTrafico= (Button) view.findViewById(R.id.button2);
+        btnTrafico= (ImageButton) view.findViewById(R.id.trafico);
         btnTrafico.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -134,7 +142,7 @@ public class FragmentAlertas extends Fragment {
                 //SignalR.enviarMensaje("Holiiii");
             }
         });
-        btnFallaMec = (Button) view.findViewById(R.id.button3);
+        btnFallaMec = (ImageButton) view.findViewById(R.id.fallamecanica);
         btnFallaMec.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -147,7 +155,7 @@ public class FragmentAlertas extends Fragment {
         //ListaAlumnos.addView(Alumno);
         //ListaAlumnos.addView(Alumno2);
 
-        btnAlumnoEnfermo = (Button) view.findViewById(R.id.button4);
+        btnAlumnoEnfermo = (ImageButton) view.findViewById(R.id.enfermo);
         btnAlumnoEnfermo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -205,7 +213,7 @@ public class FragmentAlertas extends Fragment {
                 //SignalR.enviarMensaje("Holiiii");
             }
         });
-        btnManual = (Button) view.findViewById(R.id.button5);
+        btnManual = (ImageButton) view.findViewById(R.id.manual);
         btnManual.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

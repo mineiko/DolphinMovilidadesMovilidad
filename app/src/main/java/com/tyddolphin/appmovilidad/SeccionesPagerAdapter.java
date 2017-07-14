@@ -16,7 +16,7 @@ class SeccionesPagerAdapter extends FragmentPagerAdapter {
             new FragmentIniciarJornada(),
             new FragmentAlertas(),
             new FragmentCuentaMovilidad(),
-            new FragmentConfiguracion(),
+            //new FragmentConfiguracion(),
             new FragmentPreguntasFrecuentes()
     };
 

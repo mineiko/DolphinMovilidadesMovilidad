@@ -1,9 +1,26 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.tyddolphin.appmovilidad.FragmentConfiguracion"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.tyddolphin.appmovilidad.FragmentConfiguracion">
+    android:orientation="vertical"
+    android:padding="5dp">
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:layout_marginTop="5dp"
+        android:text="Notificaciones"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:padding="2dp"/>
+
+    <Switch
+        android:id="@+id/switch1"
+        android:layout_width="328dp"
+        android:layout_height="wrap_content"
+        android:text="Switch" />
 
 
-
-</FrameLayout>
+</LinearLayout>

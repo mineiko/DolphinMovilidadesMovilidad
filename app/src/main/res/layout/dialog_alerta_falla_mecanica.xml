@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="5dp">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:text="Tipo de Falla Mecánica"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:padding="2dp"/>
+
+
+    <RadioGroup
+        android:id="@+id/TiposDeFM"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="5dp">
+
+
+        <RadioButton
+            android:id="@+id/choqueLeveN1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Falla Mecánica Leve:\nSe reanudará el recorrido en un momento."
+            android:padding="5dp"
+            />
+        <RadioButton
+            android:id="@+id/choqueLeveN2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Falla Mecánica Fuerte:\nVehículo no disponible, los niños serán enviados en otro medio"
+            android:padding="5dp"
+            />
+
+    </RadioGroup>
+
+
+
+    <Button
+        android:id="@+id/btnEnviar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/button"
+        android:text="@string/enviar"
+        android:textSize="20dp"
+        android:textColor="@android:color/white" />
+    <Button
+        android:id="@+id/btnCancelar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/button"
+        android:textSize="20dp"
+        android:text="@string/cancelar"
+        android:textColor="@android:color/white" />
+
+</LinearLayout>

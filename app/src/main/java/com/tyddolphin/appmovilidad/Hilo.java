@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.util.Log;
 
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -53,6 +54,7 @@ public class Hilo extends Thread{
                 @Override
                 public void run() {
                     MarcadorMovilidad.setPosition(new LatLng(ruta[i].Latitud,ruta[i].Longitud));
+
                 }
             });
 

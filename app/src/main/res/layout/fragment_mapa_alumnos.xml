@@ -4,7 +4,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.tyddolphin.appmovilidad.FragmentMapaAlumnos">
-
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <com.google.android.gms.maps.MapView
         android:id="@+id/mapview"
         android:layout_width="match_parent"
@@ -16,6 +18,12 @@
 
     </com.google.android.gms.maps.MapView>
 
+    <TextClock
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:format12Hour="hh:mm:ss a"
+        android:textSize="44dp"/>
 
+    </RelativeLayout>
 
 </LinearLayout>

@@ -1,9 +1,83 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.tyddolphin.appmovilidad.FragmentCuentaMovilidad">
+    tools:context="com.tyddolphin.appmovilidad.FragmentCuentaMovilidad"
+    android:orientation="vertical">
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:text="Perfil"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:padding="2dp"/>
 
+    <Button
+        android:id="@+id/btnEdit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
 
-</FrameLayout>
+        android:padding="12dp"
+        android:text="Editar"
+        android:textSize="20sp" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="40dp" />
+    <ImageView
+        android:layout_width="170dp"
+        android:layout_height="200dp"
+        android:src="@mipmap/foto"
+        android:layout_gravity="center"
+        android:padding="10dp"
+        android:background="@color/colorPrimaryDark"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Rodrigo Francisco Mendoza Melgar"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="23 años"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="994837665"/>
+
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="150dp"
+        android:src="@mipmap/movilidad"
+        android:layout_gravity="center"
+        android:padding="10dp"
+        android:background="@color/colorPrimaryDark"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Nissan Urvan"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="2001"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="V6N-136"/>
+
+</LinearLayout>

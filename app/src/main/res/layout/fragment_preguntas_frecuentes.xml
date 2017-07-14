@@ -1,9 +1,39 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.tyddolphin.appmovilidad.FragmentPreguntasFrecuentes">
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:text="Preguntas Frecuentes"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:padding="2dp"/>
 
+    <TextView
 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:layout_marginTop="5dp"
+        android:text="¿Cómo editar mi perfil?"
+        android:textSize="19sp"
+        android:textStyle="bold"
+        android:padding="2dp"/>
+    <TextView
 
-</FrameLayout>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:text="Para poder editar su perfil tiene que\nla siguiente secuencia:\nIr a perfil->Seleccionar el botón editar."
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:padding="2dp"/>
+
+</LinearLayout>

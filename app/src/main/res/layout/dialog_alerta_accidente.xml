@@ -53,8 +53,6 @@
                 android:text="Choque Fuerte Nivel 2:\ncon heridos, avisar urgente a ambulancia, padres y colegio."
                 android:padding="5dp"
                 />
-
-
         </RadioGroup>
 
 

@@ -32,6 +32,8 @@ public class FragmentAlertas extends Fragment {
     private RadioGroup radioGroup;
     private RadioButton radioButton;
 
+    private RadioGroup radioGroup2;
+    private RadioButton radioButton2;
     LinearLayout ListaAlumnos;
     public static String[] Alumnos = {
             "Juan Salas",
@@ -95,9 +97,10 @@ public class FragmentAlertas extends Fragment {
 
                         // find the radiobutton by returned id
                         radioButton = (RadioButton) mView.findViewById(selectedId);
-
+                        if(radioButton==null)Toast.makeText(getContext(), "Seleccione una opción", Toast.LENGTH_SHORT).show();
+                        else{
                         Toast.makeText(getContext(), radioButton.getText(), Toast.LENGTH_SHORT).show();
-                        dialog.cancel();
+                        dialog.cancel();}
 
                     }
 
@@ -146,8 +149,46 @@ public class FragmentAlertas extends Fragment {
         btnFallaMec.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "Alerta Falla Mecanica Enviada", Toast.LENGTH_LONG).show();
-                //SignalR.enviarMensaje("Holiiii");
+                //Toast.makeText(getContext(), "Alerta Accidente enviada", Toast.LENGTH_LONG).show();
+                AlertDialog.Builder mBuilder = new AlertDialog.Builder(getContext());
+                final View mView = li.inflate(R.layout.dialog_alerta_falla_mecanica,null);
+
+                Button BTNEnviar = (Button) mView.findViewById(R.id.btnEnviar);
+                Button BTNCancelar = (Button) mView.findViewById(R.id.btnCancelar);
+                mBuilder.setView(mView);
+                final AlertDialog dialog = mBuilder.create();
+                dialog.show();
+                radioGroup2 = (RadioGroup) mView.findViewById(R.id.TiposDeFM);
+
+                BTNCancelar.setOnClickListener(new  View.OnClickListener(){
+
+                    @Override
+                    public void onClick(View view) {
+                        Toast.makeText(getContext(),"Elección de Alerta : Falla Mecánica , cancelada", Toast.LENGTH_LONG).show();
+                        dialog.cancel();
+                    }
+                });
+
+                BTNEnviar.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+
+
+                        // get selected radio button from radioGroup
+                        int selectedId = radioGroup2.getCheckedRadioButtonId();
+
+                        // find the radiobutton by returned id
+                        radioButton2 = (RadioButton) mView.findViewById(selectedId);
+
+                        if(radioButton2==null)Toast.makeText(getContext(), "Seleccione una opción", Toast.LENGTH_SHORT).show();
+                        else{
+                        Toast.makeText(getContext(), radioButton2.getText(), Toast.LENGTH_SHORT).show();
+                        dialog.cancel();}
+
+                    }
+
+                });
             }
         });
 
